@@ -1,5 +1,14 @@
 # Sistema di Gestione Ristorante
 ## Introduzione al progetto
+Questo progetto ha come obiettivo la progettazione e la realizzazione di un sistema di gestione per un ristorante, basato su un database relazionale questa applicazione è in grado di gestire in modo efficace le principali attività dell'esercizio.
+
+Un ristorante necessita di strumenti informatici che consentano di gestire in maniera ordinata e coerente tutte le informazioni, come ad esempio il menu, gli ordini dei clienti, la prenotazione dei tavoli, il personale, gli ordini ai fornitori e la gestione del magazzino. Una gestione efficace di questi dati permette all'esercente di migliorare l'efficienza del servizio, ridurre gli errori e ottimizzare le risorse disponibili.
+
+Il progetto viene sviluppato seguendo un approccio strutturato, partendo dall'analisi dei requisiti, continuando con la modellazione concettuale tramite il diagramma Entità-Relazione, passando alla definizione dello schema logico relazionale e infine alla realizzazione dello script SQL.
+
+Il progetto dell'applicazione viene salvato in un repository GitHub al seguente link: [repository GitHub](https://github.com/Thie15/progetto_db_gestione_ristorante), permettendo cosi il versionamento. Nel repository si troveranno i seguenti file:
+ - README.md --> che contiene la relazione tecnica completa
+ - database.sql --> che contiene lo script SQL
 
 ## Analisi dei requisiti
 
