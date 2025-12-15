@@ -145,6 +145,53 @@ erDiagram
 
 ## Schema logico
 
+Menu(<u>IDMenu</u>, Nome)
+
+Piatti(<u>IDPiatto</u>, Nome, Prezzo)
+
+Ingredienti(<u>IDIngrediente</u>, Nome, Quantita)
+
+Specifiche(<u>IDSpecifica</u>, Nome, Immagine)
+
+OrdiniFornitori(<u>IDOrdine</u>, DataOrdine, DataConsegna*, fkIDFornitore)
+
+Fornitori(<u>IDFornitore</u>, PIVA, Nome, Indirizzo_Comune, Indirizzo_CAP, Indirizzo_Via, Indirizzo_Civico)
+
+Ordini(<u>IDOrdine</u>, Note, fkIDPrenotazione)
+
+Prenotazioni(<u>IDPrenotazione</u>, Ora, Data, NumeroPersone, MetodoPagamento)
+
+Tavoli(<u>IDTavolo</u>, Posti, Ubicazione)
+
+Personale(<u>IDPersonale</u>, Nome, Cognome, Turno, Stipendio, Indirizzo_Comune, Indirizzo_CAP, Indirizzo_Via, Indirizzo_Civico)
+
+Camerieri(<u>IDPersonale</u>, Zona)
+
+Cuochi(<u>IDPersonale</u>, Specializzazione, Livello)
+
+Lingue(<u>Nome</u>)
+
+Certificazioni(<u>Tipo</u>)
+
+Timbrature(<u>IDPersonale</u>, <u>Data</u>, Ora, Entrata/Uscita)
+
+aux_Camerieri_Lingue(<u>fkIDPersonale</u>, <u>fkNome</u>)
+
+aux_Cuochi_Certificazioni(<u>fkIDPersonale</u>, <u>fkTipo</u>)
+
+aux_Ordini_Cuochi_Piatti(<u>fkIDOrdine</u>, <u>fkIDPersonale</u>, <u>fkIDPiatto</u>)
+
+aux_Prenotazioni_Tavoli(<u>fkIDPrenotazioni</u>, <u>fkIDTavolo</u>)
+
+aux_Piatti_Ingredienti(<u>fkIDPiatti</u>, <u>fkIDIngredienti</u>)
+
+aux_Ingredienti_Specifiche(<u>fkIDIngredienti</u>, <u>fkIDSpecifica</u>)
+
+aux_Ingredienti_OrdiniFornitori(<u>fkIDSpecifica</u>, <u>fkIDOrdine</u>, Quantita)
+
+
+
+
 ## Dizionario dei dati
 
 ## Conclusioni
