@@ -53,7 +53,6 @@ erDiagram
 
     Cuoco{
         int IDPersonale PK
-        enum Specializzazione
         enum Livello
     }
 
@@ -157,7 +156,7 @@ OrdiniFornitori(<u>IDOrdine</u>, DataOrdine, DataConsegna*, fkIDFornitore)
 
 Fornitori(<u>IDFornitore</u>, PIVA, Nome, Indirizzo_Comune, Indirizzo_CAP, Indirizzo_Via, Indirizzo_Civico)
 
-Ordini(<u>IDOrdine</u>, Note, fkIDPrenotazione)
+Ordini(<u>IDOrdine</u>, Note*, fkIDPrenotazione)
 
 Prenotazioni(<u>IDPrenotazione</u>, Ora, Data, NumeroPersone, MetodoPagamento)
 
@@ -167,7 +166,7 @@ Personale(<u>IDPersonale</u>, Nome, Cognome, Turno, Stipendio, Indirizzo_Comune,
 
 Camerieri(<u>IDPersonale</u>, Zona)
 
-Cuochi(<u>IDPersonale</u>, Specializzazione, Livello)
+Cuochi(<u>IDPersonale</u>, Livello)
 
 Lingue(<u>Nome</u>)
 
