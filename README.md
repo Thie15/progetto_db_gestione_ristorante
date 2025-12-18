@@ -186,10 +186,7 @@ aux_Piatti_Ingredienti(<u>fkIDPiatti</u>, <u>fkIDIngredienti</u>)
 
 aux_Ingredienti_Specifiche(<u>fkIDIngredienti</u>, <u>fkIDSpecifica</u>)
 
-aux_Ingredienti_OrdiniFornitori(<u>fkIDSpecifica</u>, <u>fkIDOrdine</u>, Quantita)
-
-
-
+aux_Ingredienti_OrdiniFornitori(<u>fkIDSpecifica</u>, <u>fkIDOrdineFornitore</u>, Quantita)
 
 ## Dizionario dei dati
 
