@@ -11,6 +11,28 @@ Il progetto dell'applicazione viene salvato in un repository GitHub al seguente 
  - database.sql --> che contiene lo script SQL
 
 ## Analisi dei requisiti
+L'analisi dei requisiti ha come obbiettivo definire la funzionalità che il sistema di gestione del risotante deve offrire, individuando le informazioni da memorizzare e le operazioni da supportare.
+
+### Gestione del personale
+Il sistema immagazzinerà i dari anagrafici e contrattuali di tutto il personale del ristorante. Ogni membro sarà identificato univocamente e potrà svolgere uno dei seguenti ruoli:
+ - Cameriere, associato a una zona di servizio e alle lingue che parla
+ - Cuoco, caratterizzato da un livello professionale e dalle certificazioni che ha acquisito
+Il sistema gestirà anche le timbrature, registrando per ogni dipenente data, ora sia di entrata che di uscita in modo da tracciare la presenza di tutti i membri del personale
+
+### Gestione dei tavoli e delle prenotazioni
+Il sistema gestirà i tavoli memorizzando il numero di posti e la sua ubicazione, le prenotazioni invece saranno costituite da: data, ora, numero di persone e metodo di pagamento. Ogni prenotazione può essere associata a uno o più tavoli per gestire in modo flessibile gli spazi in base al numero di clienti. Inoltre la prenotazione memorizza già il metodo di pagamento in modo da non creare confusioni con gli ordini dei clienti.
+
+### Gestione degli ordini
+Il sistema gestisce gli ordini associandoli a una prenotazione, per ogni ordine si possono inserire eventuali note che servono per richieste particolari del cliente, ad esempio la carne più al sangue o più cotta. Inoltre un'ordine deve poter includere più piatti e deve poter memorizzare il cuoco che li ha preparati in modo da gestire correttamente eventuali problemi con i piatti.
+
+### Gestione del menu e dei piatti
+Il sistema gestisce più menu, ad esempio: menu del giorno, menu di Natale, menu di Pasqua. Ogni piatto è identificato da un codice e contiene un nome e un prezzo, un piatto può appartenere a uno o più menu questo consente una gestione flessibile delle proposte. Inoltre ogni piatto è composto da uno o più ingredienti.
+
+### Gestione degli ingredienti e delle specifiche
+Il sistema memorizza gli ingredienti presenti in magazzino indicando per ciascuno il nome e la quantità disponibile. Gli ingredienti sono inoltre associati a una o più specifiche che permettono di gestire sia gli allergeni che le categorie come ad esempio il piccante.
+
+### Gestione dei fornitori
+Il sistema memorizza i fornitori con i dati identificativi e di contatto, inoltre registra gli ordini di approvvigionamento memorizzando la data dell'ordine, la data di consegna (se è gia stato consegnato) e il fornitore a cui si e ordinato. Ogni ordine può contenere più ingredienti indicando le quantità ordinate cosi da gestire in modo efficace il magazzino.
 
 ## Diagramma ER 
 
@@ -187,7 +209,7 @@ aux_Piatti_Ingredienti(<u>fkIDPiatti</u>, <u>fkIDIngredienti</u>)
 
 aux_Ingredienti_Specifiche(<u>fkIDIngredienti</u>, <u>fkIDSpecifica</u>)
 
-aux_Ingredienti_OrdiniFornitori(<u>fkIDSpecifica</u>, <u>fkIDOrdineFornitore</u>, Quantita)
+aux_Ingredienti_OrdiniFornitori(<u>fkIDSpecifica</u>, <u>fkIDOrdineFornitore</u>, Quantita, UnitaMisura)
 
 ## Dizionario dei dati
 

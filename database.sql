@@ -245,6 +245,8 @@ CREATE TABLE aux_Ingredienti_Specifiche(
 CREATE TABLE aux_Ingredienti_OrdiniFornitori(
     IDIngrediente INT(3) UNSIGNED ZEROFILL NOT NULL,
     IDOrdineFornitore INT(6) UNSIGNED ZEROFILL NOT NULL,
+    Quantita INT(3) NOT NULL,
+    UnitaMisura ENUM("g", "kg", "pz", "l") NOT NULL,
     PRIMARY KEY(IDIngrediente, IDOrdineFornitore),
     INDEX(IDIngrediente),
     INDEX(IDOrdineFornitore),
