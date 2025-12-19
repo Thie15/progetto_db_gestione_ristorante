@@ -1,3 +1,22 @@
+---
+lang: it
+papersize: a4
+fontsize: 12pt
+geometry: margin=2.5cm
+header-includes:
+  - \usepackage{fancyhdr}
+  - \usepackage{lastpage}
+  - \pagestyle{fancy}
+  - \fancyhf{}
+  - \lhead{Philippot Thierry}
+  - \chead{5C IT}
+  - \rhead{\today}
+  - \lfoot{\leftmark}
+  - \rfoot{Pagina \thepage\ di \pageref{LastPage}}
+  - \renewcommand{\headrulewidth}{0.4pt}
+  - \renewcommand{\footrulewidth}{0.4pt}
+  - \fancypagestyle{plain}{\pagestyle{fancy}}
+---
 # Sistema di Gestione Ristorante
 ## Introduzione al progetto
 Questo progetto ha come obiettivo la progettazione e la realizzazione di un sistema di gestione per un ristorante, basato su un database relazionale questa applicazione è in grado di gestire in modo efficace le principali attività dell'esercizio.
