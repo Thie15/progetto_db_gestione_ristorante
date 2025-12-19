@@ -29,7 +29,7 @@ Il sistema gestisce gli ordini associandoli a una prenotazione, per ogni ordine 
 Il sistema gestisce più menu, ad esempio: menu del giorno, menu di Natale, menu di Pasqua. Ogni piatto è identificato da un codice e contiene un nome e un prezzo, un piatto può appartenere a uno o più menu questo consente una gestione flessibile delle proposte. Inoltre ogni piatto è composto da uno o più ingredienti.
 
 ### Gestione degli ingredienti e delle specifiche
-Il sistema memorizza gli ingredienti presenti in magazzino indicando per ciascuno il nome e la quantità disponibile. Gli ingredienti sono inoltre associati a una o più specifiche che permettono di gestire sia gli allergeni che le categorie come ad esempio il piccante.
+Il sistema memorizza gli ingredienti presenti in magazzino indicando per ciascuno il nome e la quantità disponibile. Gli ingredienti sono inoltre associati a una o più specifiche che permettono di gestire sia gli allergeni che le categorie come ad esempio il piccante, la specifica contiene anche un'immagine da inserire come simbolo di quella specifica.
 
 ### Gestione dei fornitori
 Il sistema memorizza i fornitori con i dati identificativi e di contatto, inoltre registra gli ordini di approvvigionamento memorizzando la data dell'ordine, la data di consegna (se è gia stato consegnato) e il fornitore a cui si e ordinato. Ogni ordine può contenere più ingredienti indicando le quantità ordinate cosi da gestire in modo efficace il magazzino.
@@ -212,5 +212,152 @@ aux_Ingredienti_Specifiche(<u>fkIDIngredienti</u>, <u>fkIDSpecifica</u>)
 aux_Ingredienti_OrdiniFornitori(<u>fkIDSpecifica</u>, <u>fkIDOrdineFornitore</u>, Quantita, UnitaMisura)
 
 ## Dizionario dei dati
+### Tabella: Personale
+
+| Campo            | Tipo     | Descrizione                           |
+| ---------------- | -------- | ------------------------------------- |
+| IDPersonale      | INT (PK) | Identificativo univoco del dipendente |
+| Nome             | VARCHAR  | Nome del dipendente                   |
+| Cognome          | VARCHAR  | Cognome del dipendente                |
+| Turno            | ENUM     | Turno di lavoro (pranzo o cena)       |
+| Stipendio        | FLOAT    | Stipendio del dipendente              |
+| Indirizzo_Comune | VARCHAR  | Comune di residenza                   |
+| Indirizzo_Via    | VARCHAR  | Via di residenza                      |
+| Indirizzo_Civico | VARCHAR  | Numero civico                         |
+| Indirizzo_CAP    | INT      | Codice di avviamento postale          |
+
+### Tabella: Timbrature
+
+| Campo          | Tipo         | Descrizione                           |
+| -------------- | ------------ | ------------------------------------- |
+| IDPersonale    | INT (PK, FK) | Dipendente che effettua la timbratura |
+| DataTimbratura | DATE (PK)    | Data della timbratura                 |
+| Ora            | TIME         | Ora della timbratura                  |
+| Tipologia      | ENUM         | Tipo di timbratura (entrata o uscita) |
+
+### Tabella: Camerieri
+
+| Campo       | Tipo         | Descrizione                   |
+| ----------- | ------------ | ----------------------------- |
+| IDPersonale | INT (PK, FK) | Identificativo del cameriere  |
+| Zona        | VARCHAR      | Zona del ristorante assegnata |
+
+### Tabella: Cuochi
+
+| Campo       | Tipo         | Descrizione                     |
+| ----------- | ------------ | ------------------------------- |
+| IDPersonale | INT (PK, FK) | Identificativo del cuoco        |
+| Livello     | ENUM         | Livello professionale del cuoco |
+
+### Tabella: Lingue
+
+| Campo | Tipo         | Descrizione               |
+| ----- | ------------ | ------------------------- |
+| Nome  | VARCHAR (PK) | Nome della lingua parlata |
+
+### Tabella: Certificazioni
+
+| Campo     | Tipo         | Descrizione                      |
+| --------- | ------------ | -------------------------------- |
+| Tipologia | VARCHAR (PK) | Tipo di certificazione posseduta |
+
+### Tabella: Prenotazioni
+
+| Campo            | Tipo     | Descrizione                       |
+| ---------------- | -------- | --------------------------------- |
+| IDPrenotazione   | INT (PK) | Identificativo della prenotazione |
+| Ora              | TIME     | Ora della prenotazione            |
+| DataPrenotazione | DATE     | Data della prenotazione           |
+| NumeroPersone    | INT      | Numero di persone prenotate       |
+| MetodoPagamento  | ENUM     | Metodo di pagamento previsto      |
+
+### Tabella: Ordini
+
+| Campo          | Tipo     | Descrizione                       |
+| -------------- | -------- | --------------------------------- |
+| IDOrdine       | INT (PK) | Identificativo dell’ordine        |
+| Note           | VARCHAR  | Eventuali note sull’ordine        |
+| IDPrenotazione | INT (FK) | Prenotazione associata all’ordine |
+
+### Tabella: Tavoli
+
+| Campo      | Tipo     | Descrizione                                             |
+| ---------- | -------- | ------------------------------------------------------- |
+| IDTavolo   | INT (PK) | Identificativo del tavolo                               |
+| Posti      | INT      | Numero di posti disponibili                             |
+| Ubicazione | VARCHAR  | Posizione del tavolo (saletta interna, veranda esterna) |
+
+### Tabella: Menu
+
+| Campo  | Tipo     | Descrizione               |
+| ------ | -------- | ------------------------- |
+| IDMenu | INT (PK) | Identificativo del menu   |
+| Nome   | VARCHAR  | Nome del menu o categoria |
+
+### Tabella: Piatti
+
+| Campo    | Tipo     | Descrizione               |
+| -------- | -------- | ------------------------- |
+| IDPiatto | INT (PK) | Identificativo del piatto |
+| Nome     | VARCHAR  | Nome del piatto           |
+| Prezzo   | FLOAT    | Prezzo del piatto         |
+
+### Tabella: Ingredienti
+
+| Campo         | Tipo     | Descrizione                       |
+| ------------- | -------- | --------------------------------- |
+| IDIngrediente | INT (PK) | Identificativo dell’ingrediente   |
+| Nome          | VARCHAR  | Nome dell’ingrediente             |
+| Quantita      | INT      | Quantità disponibile in magazzino |
+
+### Tabella: Specifiche
+
+| Campo       | Tipo     | Descrizione                          |
+| ----------- | -------- | ------------------------------------ |
+| IDSpecifica | INT (PK) | Identificativo della specifica       |
+| Nome        | VARCHAR  | Nome della specifica (es. allergene) |
+| Immagine    | BLOB     | Immagine associata alla specifica    |
+
+### Tabella: Fornitori
+
+| Campo            | Tipo     | Descrizione                  |
+| ---------------- | -------- | ---------------------------- |
+| IDFornitore      | INT (PK) | Identificativo del fornitore |
+| PIVA             | VARCHAR  | Partita IVA del fornitore    |
+| Nome             | VARCHAR  | Nome del fornitore           |
+| Indirizzo_Comune | VARCHAR  | Comune                       |
+| Indirizzo_Via    | VARCHAR  | Via                          |
+| Indirizzo_Civico | VARCHAR  | Numero civico                |
+| Indirizzo_CAP    | INT      | CAP                          |
+
+### Tabella: OrdiniFornitori
+
+| Campo             | Tipo     | Descrizione                        |
+| ----------------- | -------- | ---------------------------------- |
+| IDOrdineFornitore | INT (PK) | Identificativo ordine di fornitura |
+| DataOrdine        | DATE     | Data dell’ordine                   |
+| DataConsegna      | DATE     | Data di consegna prevista          |
+| IDFornitore       | INT (FK) | Fornitore associato                |
+
+### aux_Camerieri_Lingue
+Associa i camerieri alle lingue conosciute.
+
+### aux_Cuochi_Certificazioni
+Associa i cuochi alle certificazioni possedute.
+
+### aux_Ordini_Cuochi_Piatti
+Collega ordini, piatti e cuochi responsabili della preparazione.
+
+### aux_Prenotazioni_Tavoli
+Associa le prenotazioni ai tavoli riservati.
+
+### aux_Piatti_Ingredienti
+Associa i piatti agli ingredienti utilizzati.
+
+### aux_Ingredienti_Specifiche
+Collega ingredienti e specifiche (es. allergeni o piccante).
+
+### aux_Ingredienti_OrdiniFornitori
+Associa gli ingredienti agli ordini di approvvigionamento, indicando le quantità ordinate.
 
 ## Conclusioni
