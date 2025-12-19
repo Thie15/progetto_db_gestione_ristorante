@@ -60,7 +60,7 @@ erDiagram
         int IDPersonale PK
         date Data PK
         time Ora 
-        boolean InOut
+        boolean Tipologia
     }
 
     Lingua{
@@ -105,6 +105,7 @@ erDiagram
         int IDIngrediente PK
         string Nome
         int Quantita
+        enum UnitaMisura
     }
 
     Specifica{
@@ -148,7 +149,7 @@ Menu(<u>IDMenu</u>, Nome)
 
 Piatti(<u>IDPiatto</u>, Nome, Prezzo)
 
-Ingredienti(<u>IDIngrediente</u>, Nome, Quantita)
+Ingredienti(<u>IDIngrediente</u>, Nome, Quantita, UnitaMisura)
 
 Specifiche(<u>IDSpecifica</u>, Nome, Immagine)
 
@@ -172,7 +173,7 @@ Lingue(<u>Nome</u>)
 
 Certificazioni(<u>Tipo</u>)
 
-Timbrature(<u>IDPersonale</u>, <u>Data</u>, Ora, Entrata/Uscita)
+Timbrature(<u>IDPersonale</u>, <u>Data</u>, Ora, Tipologia)
 
 aux_Camerieri_Lingue(<u>fkIDPersonale</u>, <u>fkNome</u>)
 

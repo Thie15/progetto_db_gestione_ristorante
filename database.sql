@@ -65,7 +65,7 @@ CREATE TABLE Prenotazioni(
     Ora TIME NOT NULL,
     DataPrenotazione DATE NOT NULL,
     NumeroPersone INT(2) NOT NULL,
-    MetodoPagamento ENUM("Contanti", "Bonifico", "Carta") NOT NULL,
+    MetodoPagamento ENUM("Contanti", "Bonifico", "Carta", "PayPal", "Satispay") NOT NULL,
     INDEX(IDPrenotazione)
 );
 
@@ -104,6 +104,7 @@ CREATE TABLE Ingredienti(
     IDIngrediente INT(3) UNSIGNED ZEROFILL AUTO_INCREMENT NOT NULL PRIMARY KEY,
     Nome VARCHAR(20) NOT NULL,
     Quantita INT(3) NOT NULL,
+    UnitaMisura ENUM("g", "kg", "pz", "l") NOT NULL,
     INDEX(IDIngrediente)
 );
 
@@ -130,7 +131,7 @@ CREATE TABLE OrdiniFornitori(
     DataOrdine DATE NOT NULL,
     DataConsegna DATE NULL,
     IDFornitore INT(2) UNSIGNED ZEROFILL NOT NULL,
-    INDEX(IDOrdine),
+    INDEX(IDOrdineFornitore),
     CONSTRAINT fk_OrdiniFornitori_Fornitore
         FOREIGN KEY(IDFornitore) REFERENCES Fornitori(IDFornitore)
             ON DELETE RESTRICT
@@ -228,7 +229,7 @@ CREATE TABLE aux_Piatti_Ingredienti(
 CREATE TABLE aux_Ingredienti_Specifiche(
     IDIngrediente INT(3) UNSIGNED ZEROFILL NOT NULL,
     IDSpecifica INT(2) UNSIGNED ZEROFILL NOT NULL,
-    PRIMARY KEY(IDIngrediente, IDSpecifica)
+    PRIMARY KEY(IDIngrediente, IDSpecifica),
     INDEX(IDIngrediente),
     INDEX(IDSpecifica),
     CONSTRAINT fk_Ingredienti_auxSpecifiche
@@ -236,7 +237,7 @@ CREATE TABLE aux_Ingredienti_Specifiche(
             ON DELETE RESTRICT
             ON UPDATE CASCADE,
     CONSTRAINT fk_Specifiche_auxIngredienti
-        FOREIGN KEY(IDSpecifica) REFERENCES Specifiche(IDPrenotazione)
+        FOREIGN KEY(IDSpecifica) REFERENCES Specifiche(IDSpecifica)
             ON DELETE RESTRICT
             ON UPDATE CASCADE
 );
@@ -244,9 +245,9 @@ CREATE TABLE aux_Ingredienti_Specifiche(
 CREATE TABLE aux_Ingredienti_OrdiniFornitori(
     IDIngrediente INT(3) UNSIGNED ZEROFILL NOT NULL,
     IDOrdineFornitore INT(6) UNSIGNED ZEROFILL NOT NULL,
-    PRIMARY KEY(IDIngrediente, IDOrdineFornitore)
+    PRIMARY KEY(IDIngrediente, IDOrdineFornitore),
     INDEX(IDIngrediente),
-    INDEX(IDOrdineFornitore)
+    INDEX(IDOrdineFornitore),
     CONSTRAINT fk_Ingredienti_auxOrdiniFornitori
         FOREIGN KEY(IDIngrediente) REFERENCES Ingredienti(IDIngrediente)
             ON DELETE RESTRICT
