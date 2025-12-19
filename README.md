@@ -80,7 +80,7 @@ erDiagram
 
     Timbratura{
         int IDPersonale PK
-        date Data PK
+        date DataTimbratura PK
         time Ora PK
         boolean Tipologia
     }
@@ -175,7 +175,7 @@ Ingredienti(<u>IDIngrediente</u>, Nome, Quantita, UnitaMisura)
 
 Specifiche(<u>IDSpecifica</u>, Nome, Immagine)
 
-OrdiniFornitori(<u>IDOrdine</u>, DataOrdine, DataConsegna*, fkIDFornitore)
+OrdiniFornitori(<u>IDOrdineFornitore</u>, DataOrdine, DataConsegna*, fkIDFornitore)
 
 Fornitori(<u>IDFornitore</u>, PIVA, Nome, Indirizzo_Comune, Indirizzo_CAP, Indirizzo_Via, Indirizzo_Civico)
 
@@ -195,7 +195,7 @@ Lingue(<u>Nome</u>)
 
 Certificazioni(<u>Tipo</u>)
 
-Timbrature(<u>IDPersonale</u>, <u>Data</u>, <u>Ora</u> , Tipologia)
+Timbrature(<u>IDPersonale</u>, <u>DataTimbratura</u>, <u>Ora</u> , Tipologia)
 
 aux_Camerieri_Lingue(<u>fkIDPersonale</u>, <u>fkNome</u>)
 
@@ -209,7 +209,7 @@ aux_Piatti_Ingredienti(<u>fkIDPiatti</u>, <u>fkIDIngredienti</u>)
 
 aux_Ingredienti_Specifiche(<u>fkIDIngredienti</u>, <u>fkIDSpecifica</u>)
 
-aux_Ingredienti_OrdiniFornitori(<u>fkIDSpecifica</u>, <u>fkIDOrdineFornitore</u>, Quantita, UnitaMisura)
+aux_Ingredienti_OrdiniFornitori(<u>fkIDIngrediente</u>, <u>fkIDOrdineFornitore</u>, Quantita, UnitaMisura)
 
 ## Dizionario dei dati
 ### Tabella: Personale

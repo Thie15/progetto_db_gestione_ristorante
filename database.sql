@@ -66,16 +66,22 @@ CREATE TABLE Prenotazioni(
     DataPrenotazione DATE NOT NULL,
     NumeroPersone INT(2) NOT NULL,
     MetodoPagamento ENUM("Contanti", "Bonifico", "Carta", "PayPal", "Satispay") NOT NULL,
-    INDEX(IDPrenotazione)
+    INDEX(IDPrenotazione),
+    CHECK (NumeroPersone > 0)
 );
 
 CREATE TABLE Ordini(
     IDOrdine INT(6) UNSIGNED ZEROFILL AUTO_INCREMENT NOT NULL PRIMARY KEY,
     Note VARCHAR(255) NULL,
     IDPrenotazione INT(5) UNSIGNED ZEROFILL NOT NULL,
+    IDPersonale INT(3) UNSIGNED ZEROFILL NOT NULL,
     INDEX(IDPrenotazione),
     CONSTRAINT fk_Ordini_Prenotazioni
         FOREIGN KEY (IDPrenotazione) REFERENCES Prenotazioni(IDPrenotazione)
+            ON DELETE RESTRICT
+            ON UPDATE RESTRICT,
+    CONSTRAINT fk_Camerieri_Ordini
+        FOREIGN KEY (IDPersonale) REFERENCES Personale(IDPersonale)
             ON DELETE RESTRICT
             ON UPDATE RESTRICT
 );
@@ -84,14 +90,16 @@ CREATE TABLE Tavoli(
     IDTavolo INT(2) UNSIGNED ZEROFILL AUTO_INCREMENT NOT NULL PRIMARY KEY,
     Posti INT(2) UNSIGNED NOT NULL,
     Ubicazione VARCHAR(20) NOT NULL,
-    INDEX(IDTavolo)
+    INDEX(IDTavolo),
+    CHECK (Posti > 0)
 );
 
 CREATE TABLE Piatti(
     IDPiatto INT(2) UNSIGNED ZEROFILL AUTO_INCREMENT NOT NULL PRIMARY KEY,
     Nome VARCHAR(40) NOT NULL,
     Prezzo FLOAT(4,2) NOT NULL,
-    INDEX(IDPiatto)
+    INDEX(IDPiatto),
+    CHECK (Prezzo > 0)
 );
 
 CREATE TABLE Menu(
@@ -105,7 +113,8 @@ CREATE TABLE Ingredienti(
     Nome VARCHAR(20) NOT NULL,
     Quantita INT(3) NOT NULL,
     UnitaMisura ENUM("g", "kg", "pz", "l") NOT NULL,
-    INDEX(IDIngrediente)
+    INDEX(IDIngrediente),
+    CHECK (Quantita >= 0)
 );
 
 CREATE TABLE Specifiche(
@@ -123,7 +132,8 @@ CREATE TABLE Fornitori(
     Indirizzo_Via VARCHAR(30) NOT NULL,
     Indirizzo_Civico VARCHAR(6) NOT NULL,
     Indirizzo_CAP INT(5) UNSIGNED ZEROFILL NOT NULL,
-    INDEX(IDFornitore)
+    INDEX(IDFornitore),
+    CHECK (CHAR_LENGTH(PIVA) = 11)
 );
 
 CREATE TABLE OrdiniFornitori(
@@ -135,7 +145,8 @@ CREATE TABLE OrdiniFornitori(
     CONSTRAINT fk_OrdiniFornitori_Fornitore
         FOREIGN KEY(IDFornitore) REFERENCES Fornitori(IDFornitore)
             ON DELETE RESTRICT
-            ON UPDATE CASCADE
+            ON UPDATE CASCADE,
+    CHECK (DataConsegna IS NULL OR DataConsegna >= DataOrdine)
 );
 
 /*Tabelle ausiliarie*/
@@ -257,7 +268,8 @@ CREATE TABLE aux_Ingredienti_OrdiniFornitori(
     CONSTRAINT fk_OrdiniFornitori_auxIngredienti
         FOREIGN KEY(IDOrdineFornitore) REFERENCES OrdiniFornitori(IDOrdineFornitore)
            ON DELETE RESTRICT
-            ON UPDATE CASCADE 
+            ON UPDATE CASCADE,
+    CHECK (Quantita > 0)
 );
 
 /*popolamento db*/
@@ -367,12 +379,12 @@ INSERT INTO aux_Ingredienti_Specifiche VALUES
 (003, 003),
 (005, 004);
 
-INSERT INTO Ordini (Note, IDPrenotazione) VALUES
-('Senza sale', 00001),
-(NULL, 00002),
-('Cottura media', 00003),
-(NULL, 00004),
-('Allergia lattosio', 00005);
+INSERT INTO Ordini (Note, IDPrenotazione, IDPersonale) VALUES
+('Senza sale', 00001, 004),
+(NULL, 00002, 001),
+('Cottura media', 00003, 002),
+(NULL, 00004, 002),
+('Allergia lattosio', 00005, 001);
 
 INSERT INTO aux_Ordini_Cuochi_Piatti VALUES
 (000001, 003, 01),
