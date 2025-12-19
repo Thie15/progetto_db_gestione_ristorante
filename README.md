@@ -81,7 +81,7 @@ erDiagram
     Timbratura{
         int IDPersonale PK
         date Data PK
-        time Ora 
+        time Ora PK
         boolean Tipologia
     }
 
@@ -195,7 +195,7 @@ Lingue(<u>Nome</u>)
 
 Certificazioni(<u>Tipo</u>)
 
-Timbrature(<u>IDPersonale</u>, <u>Data</u>, Ora, Tipologia)
+Timbrature(<u>IDPersonale</u>, <u>Data</u>, <u>Ora</u> , Tipologia)
 
 aux_Camerieri_Lingue(<u>fkIDPersonale</u>, <u>fkNome</u>)
 
@@ -232,7 +232,7 @@ aux_Ingredienti_OrdiniFornitori(<u>fkIDSpecifica</u>, <u>fkIDOrdineFornitore</u>
 | -------------- | ------------ | ------------------------------------- |
 | IDPersonale    | INT (PK, FK) | Dipendente che effettua la timbratura |
 | DataTimbratura | DATE (PK)    | Data della timbratura                 |
-| Ora            | TIME         | Ora della timbratura                  |
+| Ora            | TIME (PK)    | Ora della timbratura                  |
 | Tipologia      | ENUM         | Tipo di timbratura (entrata o uscita) |
 
 ### Tabella: Camerieri

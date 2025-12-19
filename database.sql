@@ -22,7 +22,7 @@ CREATE TABLE Timbrature(
     DataTimbratura DATE NOT NULL,
     Ora TIME NOT NULL,
     Tipologia ENUM("Entrata", "Uscita") NOT NULL,
-    PRIMARY KEY(IDPersonale, DataTimbratura),
+    PRIMARY KEY(IDPersonale, DataTimbratura, Ora),
     INDEX(IDPersonale),
     CONSTRAINT fk_Personale_Timbrature
         FOREIGN KEY (IDPersonale) REFERENCES Personale(IDPersonale)
@@ -259,3 +259,138 @@ CREATE TABLE aux_Ingredienti_OrdiniFornitori(
            ON DELETE RESTRICT
             ON UPDATE CASCADE 
 );
+
+/*popolamento db*/
+
+INSERT INTO Personale
+(Nome, Cognome, Turno, Stipendio, Indirizzo_Comune, Indirizzo_Via, Indirizzo_Civico, Indirizzo_CAP)
+VALUES
+('Marco', 'Rossi', 'Pranzo', 1500.00, 'Aosta', 'Via Roma', '10', 11100),
+('Luca', 'Bianchi', 'Cena', 1400.00, 'Aosta', 'Via Torino', '22', 11100),
+('Anna', 'Verdi', 'Cena', 1800.00, 'Aosta', 'Via Milano', '5', 11100),
+('Giulia', 'Neri', 'Pranzo', 1350.00, 'Aosta', 'Via Dante', '8', 11100),
+('Paolo', 'Ferrari', 'Cena', 2000.00, 'Aosta', 'Via Garibaldi', '15', 11100);
+
+INSERT INTO Camerieri (IDPersonale, Zona) VALUES
+(001, 'Interno'),
+(002, 'Esterno'),
+(004, 'Interno');
+
+INSERT INTO Cuochi (IDPersonale, Livello) VALUES
+(003, 'Sous Chef'),
+(005, 'Executive Chef');
+
+INSERT INTO Lingue (Nome) VALUES
+('Italiano'),
+('Inglese'),
+('Francese'),
+('Tedesco'),
+('Spagnolo');
+
+INSERT INTO Certificazioni (Tipologia) VALUES
+('Sicurezza Alimentare'),
+('Cucina Vegana'),
+('Cucina Senza Glutine'),
+('Cucina Internazionale');
+
+INSERT INTO aux_Camerieri_Lingue VALUES
+(001, 'Italiano'),
+(001, 'Inglese'),
+(002, 'Francese'),
+(004, 'Italiano'),
+(004, 'Spagnolo');
+
+INSERT INTO aux_Cuochi_Certificazioni VALUES
+(003, 'Cucina Vegana'),
+(003, 'Cucina Senza Glutine'),
+(005, 'Sicurezza Alimentare'),
+(005, 'Cucina Internazionale');
+
+INSERT INTO Timbrature VALUES
+(001, '2025-06-10', '11:30:00', 'Entrata'),
+(001, '2025-06-10', '15:30:00', 'Uscita'),
+(003, '2025-06-10', '18:00:00', 'Entrata'),
+(003, '2025-06-10', '23:00:00', 'Uscita');
+
+INSERT INTO Tavoli (Posti, Ubicazione) VALUES
+(2, 'Interno'),
+(4, 'Interno'),
+(6, 'Esterno'),
+(4, 'Esterno'),
+(8, 'Interno');
+
+INSERT INTO Prenotazioni (Ora, DataPrenotazione, NumeroPersone, MetodoPagamento) VALUES
+('12:30:00', '2025-06-10', 2, 'Carta'),
+('20:00:00', '2025-06-10', 4, 'Contanti'),
+('21:00:00', '2025-06-11', 6, 'PayPal'),
+('19:30:00', '2025-06-11', 4, 'Satispay'),
+('13:00:00', '2025-06-12', 8, 'Bonifico');
+
+INSERT INTO aux_Prenotazioni_Tavoli VALUES
+(00001, 01),
+(00002, 02),
+(00003, 03),
+(00004, 04),
+(00005, 05);
+
+INSERT INTO Piatti (Nome, Prezzo) VALUES
+('Spaghetti alla Carbonara', 12.50),
+('Risotto ai Funghi', 11.00),
+('Bistecca alla Griglia', 18.00),
+('Tiramisù', 6.00),
+('Insalata Mista', 5.50);
+
+INSERT INTO Ingredienti (Nome, Quantita, UnitaMisura) VALUES
+('Pasta', 5000, 'g'),
+('Uova', 200, 'pz'),
+('Funghi', 3000, 'g'),
+('Carne Bovina', 10, 'kg'),
+('Insalata', 2000, 'g');
+
+INSERT INTO Specifiche (Nome, Immagine) VALUES
+('Glutine', ''),
+('Uova', ''),
+('Vegetariano', ''),
+('Vegano', ''),
+('Lattosio', '');
+
+INSERT INTO aux_Piatti_Ingredienti VALUES
+(01, 001),
+(01, 002),
+(02, 003),
+(03, 004),
+(05, 005);
+
+INSERT INTO aux_Ingredienti_Specifiche VALUES
+(001, 001),
+(002, 002),
+(003, 003),
+(005, 004);
+
+INSERT INTO Ordini (Note, IDPrenotazione) VALUES
+('Senza sale', 00001),
+(NULL, 00002),
+('Cottura media', 00003),
+(NULL, 00004),
+('Allergia lattosio', 00005);
+
+INSERT INTO aux_Ordini_Cuochi_Piatti VALUES
+(000001, 003, 01),
+(000001, 003, 02),
+(000002, 005, 03),
+(000003, 005, 04),
+(000004, 003, 05);
+
+INSERT INTO Fornitori (PIVA, Nome, Indirizzo_Comune, Indirizzo_Via, Indirizzo_Civico, Indirizzo_CAP) VALUES
+('01234567890', 'FreshFood SRL', 'Torino', 'Via Po', '10', 10100),
+('09876543211', 'BioMarket SPA', 'Milano', 'Via Verdi', '22', 20100);
+
+INSERT INTO OrdiniFornitori (DataOrdine, DataConsegna, IDFornitore) VALUES
+('2025-06-01', '2025-06-03', 01),
+('2025-06-05', '2025-06-07', 02);
+
+INSERT INTO aux_Ingredienti_OrdiniFornitori VALUES
+(001, 000001, 2000, 'g'),
+(002, 000001, 50, 'pz'),
+(003, 000002, 1000, 'g'),
+(004, 000002, 5, 'kg');
