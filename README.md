@@ -361,3 +361,10 @@ Collega ingredienti e specifiche (es. allergeni o piccante).
 Associa gli ingredienti agli ordini di approvvigionamento, indicando le quantità ordinate.
 
 ## Conclusioni
+In questa prima fase del progetto è stata affrontata la progettazione completa del database per un sistema di gestione di un ristorante.
+
+Partendo dall'analisi dei requisiti sono state individuate le principali entità coinvolte e le funzionalità necessarie a supportare le attività principali del ristorante.
+
+Successivamente si è passato alla realizzazione del diagramma ER che ha permesso di modellare in modo chiaro le relazioni tra le varie entità scelte nella fase di progettazione, evidenziando le cardinalità e i vincoli principali.
+
+Successivamente il diagramma ER è stato trasformato nello schema logico nel quale sono state definite le chiavi esterne e le tabelle ausiliarie per poi passare alla realizzazione dello script SQL che consente la creazione completa della base di dati per gestire in modo scalabile il sistema, lasciando spazio a future estensioni come l'integrazione con un'applicazione web.
