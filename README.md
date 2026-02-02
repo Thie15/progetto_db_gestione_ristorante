@@ -387,3 +387,19 @@ Partendo dall'analisi dei requisiti sono state individuate le principali entità
 Successivamente si è passato alla realizzazione del diagramma ER che ha permesso di modellare in modo chiaro le relazioni tra le varie entità scelte nella fase di progettazione, evidenziando le cardinalità e i vincoli principali.
 
 Successivamente il diagramma ER è stato trasformato nello schema logico nel quale sono state definite le chiavi esterne e le tabelle ausiliarie per poi passare alla realizzazione dello script SQL che consente la creazione completa della base di dati per gestire in modo scalabile il sistema, lasciando spazio a future estensioni come l'integrazione con un'applicazione web.
+
+## Visualizzazione sito
+
+1. Pagina iniziale dove si vedono i piatti con delle card cono foto di sfondo dove c'è il titolo del piatto, le specifiche e il costo e la possibilita di aggiungere al carrello, se schiaccio sul piatto si apre una pagina dove si visualizzano tutti i dettagli dei piatti(ingredienti)
+
+2. Pagina del personale dove si visualizzano tutte le informazioni dei camerieri e dei cuochi con delle card e foto
+
+3. Pagina del carrello dove si vedono i piatti che si stanno per ordinare 
+
+4. Pagina di login dove si vede lo storico degli ordini effettuati e dove si può risevare una prenotazione
+
+5. Pagina di login del per il personale dove si vedono i propri dati e le varie timbrature effettuate 
+
+6. Pagina di login dell'amministratore del ristorante dove vede le quantita dei vari ingredienti e puo effettuare ordini ai fornitori (?extra)
+
+7. Pagina di login dei fornitori dove i fornitori vedono gli ordini che sono stati effettuati dal ristorante
