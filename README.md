@@ -390,16 +390,30 @@ Successivamente il diagramma ER è stato trasformato nello schema logico nel qua
 
 ## Visualizzazione sito
 
-1. Pagina iniziale dove si vedono i piatti con delle card cono foto di sfondo dove c'è il titolo del piatto, le specifiche e il costo e la possibilita di aggiungere al carrello, se schiaccio sul piatto si apre una pagina dove si visualizzano tutti i dettagli dei piatti(ingredienti)
+### Visualizzazione pubblica senza accesso
 
-2. Pagina del personale dove si visualizzano tutte le informazioni dei camerieri e dei cuochi con delle card e foto
+Tutte le seguenti pagine hanno un header con a destra il logo e a sinistra un menu con la home, personale, prenotazione, carrello, accedi.
 
-3. Pagina del carrello dove si vedono i piatti che si stanno per ordinare 
+* Home page, in questa pagina si visualizzano tutti i piatti del ristorante con titolo, prezzo, icone delle specifiche e la possibilita di aggiungerlo al carrello, se si schiaccia su un piatto si apre la visualizza piatto.
+* Personale, in questa pagina si visualizzano tuttu i dipendenti del ristorante con un'immagine, il loro ruolo e una breve descrizione di loro.
+* Prenotazione, in questa pagina è possibile o effettuare una nuova prenotazione che restituirà un codice per visualizzarla in seguito oppure inserire il codice della prenotazione per visualizzarla
+* Carrello dove inserendo il codice si visualizzano i piatti ordinati o dove si puo' effettuare un nuovo ordine.
+* Accedi porta alla pagina di login.
 
-4. Pagina di login dove si vede lo storico degli ordini effettuati e dove si può risevare una prenotazione
+Pagine aggiuntive:
+* Visualizza piatto, in questa pagina si visualizzano tutti gli ingredienti del piatto e le varie specifiche ad esso collegate.
 
-5. Pagina di login del per il personale dove si vedono i propri dati e le varie timbrature effettuate 
+### Visualizzazione con accesso del personale
+Una volta aver effettuato l'accesso si vedono i dati personali, l'importo dello stipendo, il turno, lo storico delle timbrature e la possibilità di inserire una nuova timbratura.
 
-6. Pagina di login dell'amministratore del ristorante dove vede le quantita dei vari ingredienti e puo effettuare ordini ai fornitori (?extra)
+### Visualizzazione con accesso del fornitore
+Una volta effettuato l'accesso si vedono gli ordini che sono stati effettuati, la data di ordine e la possibilità di inserire la data di consegna una volta che l'ordine è stato consegnato.
 
-7. Pagina di login dei fornitori dove i fornitori vedono gli ordini che sono stati effettuati dal ristorante
+### Visualizzazione con accesso dell'amministratore
+Una volta effettuato l'accesso si vedono tre categorie: gestione personale, gestione ingredienti, gestione piatti e gestione fornitori.
+
+Pagine aggiuntive:
+* Gestione personale: si puo aggiungere un nuovo dipendente, modificare o licenziare quelli già presenti.
+* Gestione ingredienti: si visualizzano le varie quantità di ogni ingrediente e si possono effettuare nuovi ordini ai fornitori.
+* Gestione piatti: si può aggiungere un nuovo piatto, modificare o eliminare quelli già presenti.
+* Gestione fornitori: si può aggiungere un nuovo fornitore, modificare o eliminare quelli già presenti.
