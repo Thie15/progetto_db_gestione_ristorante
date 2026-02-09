@@ -417,3 +417,18 @@ Pagine aggiuntive:
 * Gestione ingredienti: si visualizzano le varie quantità di ogni ingrediente e si possono effettuare nuovi ordini ai fornitori.
 * Gestione piatti: si può aggiungere un nuovo piatto, modificare o eliminare quelli già presenti.
 * Gestione fornitori: si può aggiungere un nuovo fornitore, modificare o eliminare quelli già presenti.
+
+### Site map
+- index.php
+- personale.php
+- prenotazione.php
+- carrello.php
+- login.php
+- visualizzaPiatto.php
+- dashboardPersonale.php
+- dashboardFornitore.php
+- dashboardAdmin.php
+- gestionePersonale.php
+- gestioneIngredienti.php
+- gestionePiatti.php
+- gestioneFornitori.php
