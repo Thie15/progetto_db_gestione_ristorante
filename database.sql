@@ -9,7 +9,8 @@ CREATE TABLE Personale(
     Nome VARCHAR(30) NOT NULL,
     Cognome VARCHAR(30) NOT NULL,
     Turno ENUM("Pranzo", "Cena") NOT NULL,
-    Stipendio FLOAT(6, 2) UNSIGNED NOT NULL, 
+    Stipendio FLOAT(6, 2) UNSIGNED NOT NULL,
+    Immagine VARCHAR(8) NOT NULL,
     Indirizzo_Comune VARCHAR(30) NOT NULL, 
     Indirizzo_Via VARCHAR(30) NOT NULL,
     Indirizzo_Civico VARCHAR(6) NOT NULL,
@@ -98,6 +99,7 @@ CREATE TABLE Piatti(
     IDPiatto INT(2) UNSIGNED ZEROFILL AUTO_INCREMENT NOT NULL PRIMARY KEY,
     Nome VARCHAR(40) NOT NULL,
     Prezzo FLOAT(4,2) NOT NULL,
+    Immagine VARCHAR(7) NOT NULL,
     INDEX(IDPiatto),
     CHECK (Prezzo > 0)
 );
@@ -120,7 +122,7 @@ CREATE TABLE Ingredienti(
 CREATE TABLE Specifiche(
     IDSpecifica INT(2) UNSIGNED ZEROFILL AUTO_INCREMENT NOT NULL PRIMARY KEY,
     Nome VARCHAR(20) NOT NULL,
-    Immagine BLOB NOT NULL,
+    Immagine VARCHAR(7) NOT NULL,
     INDEX(IDSpecifica)
 );
 
@@ -147,6 +149,26 @@ CREATE TABLE OrdiniFornitori(
             ON DELETE RESTRICT
             ON UPDATE CASCADE,
     CHECK (DataConsegna IS NULL OR DataConsegna >= DataOrdine)
+);
+
+CREATE TABLE Account(
+    IDAccount INT(4) AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(50) NOT NULL UNIQUE,
+    Email VARCHAR(100) NOT NULL UNIQUE,
+    Password CHAR(64) NOT NULL,
+    Salt CHAR(64) NOT NULL,
+    IDPersonale INT(3) UNSIGNED ZEROFILL NULL,
+    IDFornitore INT(2) UNSIGNED ZEROFILL NULL,
+
+    CONSTRAINT fk_Account_Personale
+        FOREIGN KEY(IDPersonale) REFERENCES Personale(IDPersonale)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+
+    CONSTRAINT fk_Account_Fornitori
+        FOREIGN KEY(IDFornitore) REFERENCES Fornitori(IDFornitore)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 /*Tabelle ausiliarie*/
@@ -275,13 +297,13 @@ CREATE TABLE aux_Ingredienti_OrdiniFornitori(
 /*popolamento db*/
 
 INSERT INTO Personale
-(Nome, Cognome, Turno, Stipendio, Indirizzo_Comune, Indirizzo_Via, Indirizzo_Civico, Indirizzo_CAP)
+(Nome, Cognome, Turno, Stipendio, Immagine, Indirizzo_Comune, Indirizzo_Via, Indirizzo_Civico, Indirizzo_CAP)
 VALUES
-('Marco', 'Rossi', 'Pranzo', 1500.00, 'Aosta', 'Via Roma', '10', 11100),
-('Luca', 'Bianchi', 'Cena', 1400.00, 'Aosta', 'Via Torino', '22', 11100),
-('Anna', 'Verdi', 'Cena', 1800.00, 'Aosta', 'Via Milano', '5', 11100),
-('Giulia', 'Neri', 'Pranzo', 1350.00, 'Aosta', 'Via Dante', '8', 11100),
-('Paolo', 'Ferrari', 'Cena', 2000.00, 'Aosta', 'Via Garibaldi', '15', 11100);
+('Marco','Rossi','Pranzo',1500.00,'001.webp','Aosta','Via Roma','10',11100),
+('Luca','Bianchi','Cena',1400.00,'002.webp','Aosta','Via Torino','22',11100),
+('Anna','Verdi','Cena',1800.00,'003.webp','Aosta','Via Milano','5',11100),
+('Giulia','Neri','Pranzo',1350.00,'004.webp','Aosta','Via Dante','8',11100),
+('Paolo','Ferrari','Cena',2000.00,'005.webp','Aosta','Via Garibaldi','15',11100);
 
 INSERT INTO Camerieri (IDPersonale, Zona) VALUES
 (001, 'Interno'),
@@ -345,12 +367,12 @@ INSERT INTO aux_Prenotazioni_Tavoli VALUES
 (00004, 04),
 (00005, 05);
 
-INSERT INTO Piatti (Nome, Prezzo) VALUES
-('Spaghetti alla Carbonara', 12.50),
-('Risotto ai Funghi', 11.00),
-('Bistecca alla Griglia', 18.00),
-('Tiramisù', 6.00),
-('Insalata Mista', 5.50);
+INSERT INTO Piatti (Nome, Prezzo, Immagine) VALUES
+('Spaghetti alla Carbonara',12.50,'01.webp'),
+('Risotto ai Funghi',11.00,'02.webp'),
+('Bistecca alla Griglia',18.00,'03.webp'),
+('Tiramisù',6.00,'04.webp'),
+('Insalata Mista',5.50,'05.webp');
 
 INSERT INTO Ingredienti (Nome, Quantita, UnitaMisura) VALUES
 ('Pasta', 5000, 'g'),
@@ -360,11 +382,11 @@ INSERT INTO Ingredienti (Nome, Quantita, UnitaMisura) VALUES
 ('Insalata', 2000, 'g');
 
 INSERT INTO Specifiche (Nome, Immagine) VALUES
-('Glutine', ''),
-('Uova', ''),
-('Vegetariano', ''),
-('Vegano', ''),
-('Lattosio', '');
+('Glutine','01.webp'),
+('Uova','02.webp'),
+('Vegetariano','03.webp'),
+('Vegano','04.webp'),
+('Lattosio','05.webp');
 
 INSERT INTO aux_Piatti_Ingredienti VALUES
 (01, 001),
@@ -406,3 +428,42 @@ INSERT INTO aux_Ingredienti_OrdiniFornitori VALUES
 (002, 000001, 50, 'pz'),
 (003, 000002, 1000, 'g'),
 (004, 000002, 5, 'kg');
+
+INSERT INTO Account
+(Username, Email, Password, Salt, IDPersonale, IDFornitore)
+VALUES
+
+('m.rossi', 'm.rossi@smartristo.com',
+'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+001, NULL),
+
+('l.bianchi', 'l.bianchi@smartristo.com',
+'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+002, NULL),
+
+('a.verdi', 'a.verdi@smartristo.com',
+'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+003, NULL),
+
+('g.neri', 'g.neri@smartristo.com',
+'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+004, NULL),
+
+('p.ferrari', 'p.ferrari@smartristo.com',
+'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+005, NULL),
+
+('freshfood', 'freshfood@smartristo.com',
+'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+NULL, 01),
+
+('biomarket', 'biomarket@smartristo.com',
+'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+NULL, 02);

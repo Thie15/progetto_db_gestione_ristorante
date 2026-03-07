@@ -53,6 +53,9 @@ Il sistema memorizza gli ingredienti presenti in magazzino indicando per ciascun
 ### Gestione dei fornitori
 Il sistema memorizza i fornitori con i dati identificativi e di contatto, inoltre registra gli ordini di approvvigionamento memorizzando la data dell'ordine, la data di consegna (se è gia stato consegnato) e il fornitore a cui si e ordinato. Ogni ordine può contenere più ingredienti indicando le quantità ordinate cosi da gestire in modo efficace il magazzino.
 
+### Gestione immagini
+Per migliorare le prestazioni del sistema web, le immagini non vengono memorizzate nel database ma salvate nel file system del server. Nel database viene salvato solo il nome del file, che consente all'applicazione di recuperare l'immagine corretta.
+
 ## Diagramma ER 
 
 ```mermaid
@@ -74,6 +77,8 @@ erDiagram
     Ingrediente |{--o{ OrdineFornitore : ordinato
     OrdineFornitore o{--|| aux_Ingrediente_OrdineFornitore : effettua
     Fornitore ||--|| aux_Ingrediente_OrdineFornitore : effettua
+    Personale ||--|| Account : possiede
+    Fornitore ||--|| Account : possiede
 
     Personale{
         int IDPersonale PK
@@ -81,6 +86,7 @@ erDiagram
         string Cognome
         enum Turno
         float Stipendio
+        string Immagine
         string Indirizzo_Comune
         string Indirizzo_Via
         string Indirizzo_Civico
@@ -135,6 +141,7 @@ erDiagram
         int IDPiatto PK
         string Nome
         float Prezzo
+        string Immagine
     }
 
     Menu{
@@ -152,7 +159,7 @@ erDiagram
     Specifica{
         int IDSpecifica PK
         string Nome
-        image Immagine
+        string Immagine
     }
 
     Fornitore{
@@ -182,13 +189,23 @@ erDiagram
         int IDOrdineFornitore PK
         int quantita
     }
+
+    Account{
+        int IDAccount PK
+        int IDPersonale*
+        int IDFornitore*
+        string Username
+        string Email
+        char Password
+        char Salt
+    }
 ```
 
 ## Schema logico
 
 Menu(<u>IDMenu</u>, Nome)
 
-Piatti(<u>IDPiatto</u>, Nome, Prezzo)
+Piatti(<u>IDPiatto</u>, Nome, Prezzo, Immagine)
 
 Ingredienti(<u>IDIngrediente</u>, Nome, Quantita, UnitaMisura)
 
@@ -204,7 +221,7 @@ Prenotazioni(<u>IDPrenotazione</u>, Ora, Data, NumeroPersone, MetodoPagamento)
 
 Tavoli(<u>IDTavolo</u>, Posti, Ubicazione)
 
-Personale(<u>IDPersonale</u>, Nome, Cognome, Turno, Stipendio, Indirizzo_Comune, Indirizzo_CAP, Indirizzo_Via, Indirizzo_Civico)
+Personale(<u>IDPersonale</u>, Nome, Cognome, Turno, Stipendio, Immagine, Indirizzo_Comune, Indirizzo_CAP, Indirizzo_Via, Indirizzo_Civico)
 
 Camerieri(<u>IDPersonale</u>, Zona)
 
@@ -230,6 +247,8 @@ aux_Ingredienti_Specifiche(<u>fkIDIngredienti</u>, <u>fkIDSpecifica</u>)
 
 aux_Ingredienti_OrdiniFornitori(<u>fkIDIngrediente</u>, <u>fkIDOrdineFornitore</u>, Quantita, UnitaMisura)
 
+Account(<u>IDAccount</u>, Username, Email, Password, Salt, fkIDPersonale*, fkIDFornitore*)
+
 ## Dizionario dei dati
 ### Tabella: Personale
 
@@ -240,6 +259,7 @@ aux_Ingredienti_OrdiniFornitori(<u>fkIDIngrediente</u>, <u>fkIDOrdineFornitore</
 | Cognome          | VARCHAR  | Cognome del dipendente                |
 | Turno            | ENUM     | Turno di lavoro (pranzo o cena)       |
 | Stipendio        | FLOAT    | Stipendio del dipendente              |
+| Immagine         | VARCHAR  | Nome file immagine del dipendente     |
 | Indirizzo_Comune | VARCHAR  | Comune di residenza                   |
 | Indirizzo_Via    | VARCHAR  | Via di residenza                      |
 | Indirizzo_Civico | VARCHAR  | Numero civico                         |
@@ -315,11 +335,12 @@ aux_Ingredienti_OrdiniFornitori(<u>fkIDIngrediente</u>, <u>fkIDOrdineFornitore</
 
 ### Tabella: Piatti
 
-| Campo    | Tipo     | Descrizione               |
-| -------- | -------- | ------------------------- |
-| IDPiatto | INT (PK) | Identificativo del piatto |
-| Nome     | VARCHAR  | Nome del piatto           |
-| Prezzo   | FLOAT    | Prezzo del piatto         |
+| Campo    | Tipo     | Descrizione                 
+| -------- | -------- | ----------------------------- |
+| IDPiatto | INT (PK) | Identificativo del piatto     |
+| Nome     | VARCHAR  | Nome del piatto               |
+| Prezzo   | FLOAT    | Prezzo del piatto             |
+| Immagine | VARCHAR  | Nome file immagine del piatto |
 
 ### Tabella: Ingredienti
 
@@ -335,7 +356,7 @@ aux_Ingredienti_OrdiniFornitori(<u>fkIDIngrediente</u>, <u>fkIDOrdineFornitore</
 | ----------- | -------- | ------------------------------------ |
 | IDSpecifica | INT (PK) | Identificativo della specifica       |
 | Nome        | VARCHAR  | Nome della specifica (es. allergene) |
-| Immagine    | BLOB     | Immagine associata alla specifica    |
+| Immagine    | VARCHAR  | Nome file icona della specifica      |
 
 ### Tabella: Fornitori
 
@@ -378,6 +399,18 @@ Collega ingredienti e specifiche (es. allergeni o piccante).
 
 ### aux_Ingredienti_OrdiniFornitori
 Associa gli ingredienti agli ordini di approvvigionamento, indicando le quantità ordinate.
+
+### Tabella: Account
+
+| Campo       | Tipo     | Descrizione              |
+| ----------- | -------- | ------------------------ |
+| IDAccount   | INT (PK) | Identificativo account   |
+| Username    | VARCHAR  | Nome utente              |
+| Email       | VARCHAR  | Email aziendale          |
+| Password    | CHAR     | Password cifrata         |
+| Salt        | CHAR     | Salt usato per hash      |
+| IDPersonale | INT (FK) | Collegamento a personale |
+| IDFornitore | INT (FK) | Collegamento a fornitore |
 
 ## Conclusioni
 In questa prima fase del progetto è stata affrontata la progettazione completa del database per un sistema di gestione di un ristorante.
