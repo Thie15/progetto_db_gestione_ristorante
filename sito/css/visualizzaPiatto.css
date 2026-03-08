@@ -1,0 +1,35 @@
+:root{
+    --nero: #181818;
+    --nero-chiaro: #232323;
+    --blu: #1e3a8a;
+    --verde: #22c55e;
+    --bianco: #ffffff;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.immagine-cover{
+    width: 80rem;
+    height: 50rem;
+    object-fit: cover; 
+    border-radius: 1rem;
+}
+
+.testo{
+    margin-left: 2rem;
+    padding: 1rem 0;
+    color: var(--bianco);
+    font-size: 1.2rem;
+}
+
+img .icona-specifica{
+    width: 20px !important;
+    height: 20px !important;
+    object-fit: contain;
+    margin-left: 5px;
+    vertical-align: middle;
+}

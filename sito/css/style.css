@@ -1,0 +1,24 @@
+:root{
+    --nero: #181818;
+    --nero-chiaro: #232323;
+    --blu: #1e3a8a;
+    --verde: #22c55e;
+    --bianco: #ffffff;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: var(--nero-chiaro);
+}
+
+body .titoloPagina{
+    color: var(--blu);
+    text-align: center;
+    justify-content: center;
+    padding: 2rem;
+}

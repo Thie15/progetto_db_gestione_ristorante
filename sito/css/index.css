@@ -1,0 +1,89 @@
+:root{
+    --nero: #181818;
+    --nero-chiaro: #232323;
+    --blu: #1e3a8a;
+    --verde: #22c55e;
+    --bianco: #ffffff;
+}
+
+/* nasconde toggle */
+
+#filtri{
+    display:none;
+}
+
+/* contenitore */
+
+.filtri-contenitore{
+    display:flex;
+    align-items:center;
+    gap:1rem;
+    margin:1rem;
+}
+
+/* bottone filtri */
+
+.bottone-filtri{
+    padding: 0.6rem 1.2rem;
+    color: var(--bianco);
+    background: var(--verde);
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+.bottone-filtri:hover{
+    background: var(--blu);
+}
+
+/* pannello filtri */
+
+.filtri{
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    max-width: 0;
+}
+
+/* quando aperto */
+
+#filtri:checked ~ .filtri{
+    max-width: 1000px;
+}
+
+/* form in riga */
+
+.filtri form{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+/* input */
+
+.filtri input[type="number"],
+.filtri select{
+    padding: 0.3rem;
+    border-radius: 0.4rem;
+    border: none;
+    background: var(--nero-chiaro);
+    color: var(--bianco);
+}
+
+.filtri input[type="number"]{
+    width: 3rem;
+}
+
+/* bottone */
+
+.filtri input[type="submit"]{
+    padding:0.4rem 0.8rem;
+    border:none;
+    border-radius:0.5rem;
+    background:var(--verde);
+    cursor:pointer;
+}
+
+/*label*/
+.filtri label{
+    color: var(--verde);
+}

@@ -1,0 +1,46 @@
+:root{
+    --nero: #181818;
+    --nero-chiaro: #232323;
+    --blu: #1e3a8a;
+    --verde: #22c55e;
+    --bianco: #ffffff;
+}
+
+.card-container{
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    flex-wrap: wrap;
+    /*justify-content: center;*/
+}
+
+.card-container a{
+    text-decoration: none;
+}
+
+.card{
+    background: var(--nero);
+    width: 30rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    align-items: center;
+}
+
+.card-img{
+    width: 100%;
+    height: 15rem;
+    border-radius: 1rem;
+    object-fit: cover;
+}
+
+.card-titolo{
+    color: var(--verde);
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.card-testo{
+    color: var(--bianco);
+    text-align: center;
+}
+

@@ -1,0 +1,45 @@
+:root{
+    --nero: #181818;
+    --nero-chiaro: #232323;
+    --blu: #1e3a8a;
+    --verde: #22c55e;
+    --bianco: #ffffff;
+}
+
+header{
+    background: var(--nero);
+    position: sticky;
+    padding: 1rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header .logo{
+    height: 5rem;
+}
+
+header .menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    border: none;
+}
+
+header .menu a{
+    color: var(--verde);
+    border-radius: 1rem;
+    padding: 2rem;
+    font-size: 1.3rem;
+    text-decoration: none;
+}
+
+header .menu li{
+    list-style: none;
+}
+
+header .menu a:hover{
+    background: var(--blu);
+}
