@@ -32,10 +32,10 @@
             <img class="logo" src="img/smartristo_logo.svg" alt="Smart Risto">
             <ul class="menu">
                 <li><a href="index.php">Home</a></li>
-                <li><a href="">Personale</a></li>
-                <li><a href="">Prenotazione</a></li>
-                <li><a href="">Carrello</a></li>
-                <li><a href="">Login</a></li>
+                <li><a href="personale.php">Personale</a></li>
+                <li><a href="prenotazione.php">Prenotazione</a></li>
+                <li><a href="carrello.php">Carrello</a></li>
+                <li><a href="login.php">Login</a></li>
             </ul>
         </header>
         <h1 class="titoloPagina"><?php echo $titoloPagina; ?></h1>

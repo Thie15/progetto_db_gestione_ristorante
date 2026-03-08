@@ -30,13 +30,7 @@
     width: 100%;
     height: 15rem;
     border-radius: 1rem;
-    object-fit: cover;
-}
-
-.card-personale {
-    width: 100%;
-    height: 15rem;
-    border-radius: 1rem;
+    object-position: top;
     object-fit: cover;
 }
 
