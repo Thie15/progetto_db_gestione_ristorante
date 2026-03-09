@@ -1,0 +1,59 @@
+:root{
+    --nero: #181818;
+    --nero-chiaro: #232323;
+    --blu: #1e3a8a;
+    --verde: #22c55e;
+    --bianco: #ffffff;
+}
+
+#loginForm{
+    width: 20rem;
+    margin: 2.5rem auto; 
+    padding: 2rem; 
+    background-color: var(--nero-chiaro);
+    border-radius: 0.6rem;
+    box-shadow: 0 0.5rem 1.25rem rgba(0,0,0,0.5); /* 8px 20px */
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+label{
+    color: var(--bianco);
+    font-size: 0.9rem;
+}
+
+#loginForm input{
+    padding: 0.6rem;
+    border-radius: 0.3rem;
+    border: 0.1rem solid #444;
+    background-color: var(--nero);
+    color: var(--bianco);
+    font-size: 0.9rem;
+}
+
+#loginForm button{
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.3rem;
+    background-color: var(--verde);
+    color: var(--nero);
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+#loginForm button:hover{
+    background-color: var(--blu);
+}
+
+noscript p{
+    text-align: center;
+    color: #ff4d4d;
+    margin-top: 1.25rem; /* 20px */
+}
+
+h2{
+    text-align: center;
+    color: #ff4d4d;
+}

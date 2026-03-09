@@ -8,7 +8,7 @@
         <title>Smart risto</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/header.css">
-        <link rel="stylesheet" href="css/personale.css">
+        <link rel="stylesheet" href="css/card.css">
     </head>
     <body>
         <header>
@@ -32,7 +32,7 @@
                 echo "<div class='card-container'>";
                 foreach($tabella as $personale){
                     echo "  <div class='card'>";
-                    echo "      <img class='card-img' src='img/personale/$personale[Immagine]'>";
+                    echo "      <img class='card-personale' src='img/personale/$personale[Immagine]'>";
                     echo "      <h2 class='card-titolo'>$personale[Nome] $personale[Cognome]</h2>";
                     echo "  </div>";
                 }

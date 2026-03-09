@@ -37,6 +37,7 @@
     width: 100%;
     height: 15rem;
     border-radius: 1rem;
+    object-position: top;
     object-fit: cover;
 }
 
