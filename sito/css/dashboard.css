@@ -1,0 +1,173 @@
+:root{
+    --nero: #181818;
+    --nero-chiaro: #232323;
+    --blu: #1e3a8a;
+    --verde: #22c55e;
+    --bianco: #ffffff;
+}
+
+h2{
+    text-align: center;
+    color: #ff4d4d;
+}
+
+.datipersonale{
+    width: 90%;
+    max-width: 70rem;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--nero-chiaro);
+    border-radius: 0.6rem;
+    box-shadow: 0 0.5rem 1.2rem rgba(0,0,0,0.5);
+}
+
+.datipersonale h3{
+    color: var(--verde);
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 0.15rem solid var(--blu);
+    padding-bottom: 0.4rem;
+}
+
+.datipersonale p{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    margin: 0;
+    color: var(--bianco);
+    font-size: 1rem;
+    border-bottom: 0.05rem solid #3a3a3a;
+}
+
+.datipersonale p:last-child{
+    border-bottom: none;
+}
+
+.datipersonale p span{
+    color: var(--verde);
+    font-weight: bold;
+}
+
+.datipersonale p:hover{
+    background-color: rgba(255,255,255,0.03);
+    padding-left: 0.5rem;
+    transition: 0.2s;
+}
+
+.timbrature{
+    width: 90%;
+    max-width: 70rem;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--nero-chiaro);
+    border-radius: 0.6rem;
+    box-shadow: 0 0.5rem 1.2rem rgba(0,0,0,0.5);
+}
+
+.timbrature h3{
+    color: var(--verde);
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 0.15rem solid var(--blu);
+    padding-bottom: 0.4rem;
+}
+
+.timbrature{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.6rem 1rem;
+}
+
+.timbrature h3{
+    grid-column: 1 / -1;
+}
+
+.timbrature p{
+    margin: 0;
+    padding: 0.7rem;
+    color: var(--bianco);
+    background-color: rgba(255,255,255,0.03);
+    border-radius: 0.3rem;
+    text-align: center;
+}
+
+.datifornitore{
+    width: 90%;
+    max-width: 70rem;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--nero-chiaro);
+    border-radius: 0.6rem;
+    box-shadow: 0 0.5rem 1.2rem rgba(0,0,0,0.5);
+}
+
+.datifornitore h3{
+    color: var(--verde);
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 0.15rem solid var(--blu);
+    padding-bottom: 0.4rem;
+}
+
+.datifornitore p{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    margin: 0;
+    color: var(--bianco);
+    font-size: 1rem;
+    border-bottom: 0.05rem solid #3a3a3a;
+}
+
+.datifornitore p:last-child{
+    border-bottom: none;
+}
+
+.datifornitore p:hover{
+    background-color: rgba(255,255,255,0.03);
+    padding-left: 0.5rem;
+    transition: 0.2s;
+}
+
+.ordini{
+    width: 90%;
+    max-width: 70rem;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--nero-chiaro);
+    border-radius: 0.6rem;
+    box-shadow: 0 0.5rem 1.2rem rgba(0,0,0,0.5);
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem 1rem;
+}
+
+.ordini h3{
+    grid-column: 1 / -1;
+    color: var(--verde);
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    border-bottom: 0.15rem solid var(--blu);
+    padding-bottom: 0.4rem;
+}
+
+.ordini h4{
+    margin: 0;
+    padding: 0.6rem;
+    color: var(--verde);
+    text-align: center;
+    font-size: 1rem;
+    border-bottom: 0.1rem solid #3a3a3a;
+}
+
+.ordini p{
+    margin: 0;
+    padding: 0.7rem;
+    color: var(--bianco);
+    background-color: rgba(255,255,255,0.03);
+    border-radius: 0.3rem;
+    text-align: center;
+}
