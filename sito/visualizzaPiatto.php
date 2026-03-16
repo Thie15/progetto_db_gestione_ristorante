@@ -64,7 +64,7 @@
                     }
                 }
                 echo "</p>";
-                for($i = 0; $i < $cicla; $i++){
+                /*for($i = 0; $i < $cicla; $i++){
                     $sql = "SELECT * FROM specifiche INNER JOIN aux_ingredienti_specifiche USING(IDspecifica) WHERE IDIngrediente = " . $ingredienti[$i]["IDIngrediente"];
                     $results = $conn->query($sql);
                     if($results->rowCount() >= 1){
@@ -73,7 +73,7 @@
                             echo "<img class='icona-specifica' src='img/specifiche/$specifica[Immagine]'>";
                         }
                     }
-                }
+                }*/
             }
         ?>
         <?php    

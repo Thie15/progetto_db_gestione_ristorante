@@ -1,3 +1,13 @@
+<?php
+    include("inc/datiConnessione.php");
+    try{
+        include("inc/startConn.php");
+        include("inc/checklogin.php");
+        var_dump($_SESSION);
+        if($_SESSION["ok"]){
+            header("location:dashboard.php");
+        }
+?>
 <html lang="it">
     <head>
         <title>Smart risto</title>
@@ -19,7 +29,6 @@
         </header>
         <h1 class="titoloPagina">Login</h1>
         <?php
-            session_start();
             if(isset($_SESSION["username_error"])){
                 echo "<h2>$_SESSION[username_error]</h2>";
                 unset($_SESSION["username_error"]);
@@ -33,7 +42,7 @@
                 unset($_SESSION["errore"]);
             }
         ?>
-        <form id="loginForm" method='post' action='checklogin.php'>
+        <form id="loginForm" method='post' action='checkLogin.php'>
             <label for="username">Username: </label>
             <input type="text" name='username' placeholder="Username">
             <br>
@@ -78,3 +87,9 @@
 		</script>
     </body>
 </html>
+<?php
+}catch(PDOException $e) {
+    // stampando il messaggio di errore
+    echo "<h2 style='color:red; font-weight:bold'>".$e->getMessage()."</h2>";
+}
+?>

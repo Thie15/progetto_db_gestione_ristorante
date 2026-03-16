@@ -2,6 +2,12 @@
     include("inc/datiConnessione.php");
     try{
         include("inc/startConn.php");
+        include("inc/checklogin.php");
+        if(!$_SESSION["ok"]){
+            session_unset();
+            session_destroy();
+            header("location:login.php");
+        }
 ?>
 <html lang="it">
     <head>
@@ -18,11 +24,10 @@
                 <li><a href="personale.php">Personale</a></li>
                 <li><a href="prenotazione.php">Prenotazione</a></li>
                 <li><a href="carrello.php">Carrello</a></li>
-                <li><a href="login.php">Login</a></li>
+                <li><a href="logout.php">Logout</a></li>
             </ul>
         </header>
         <?php
-            session_start();
             if(isset($_SESSION["personale"])){
                 $sql = "SELECT * FROM personale WHERE IDPersonale = $_SESSION[personale]";
                 $results = $conn->query($sql);
@@ -54,6 +59,7 @@
                 }else{
                     echo "<h2>Nessun dato trovato</h2>";
                 }
+                echo "<button class='bottone-logout'><a href='logout.php'>Effettua login</a></button>";
             }
             if(isset($_SESSION["fornitore"])){
                 $sql = "SELECT * FROM fornitori WHERE IDFornitore = $_SESSION[fornitore]";

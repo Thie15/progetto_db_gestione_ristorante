@@ -434,36 +434,36 @@ INSERT INTO Account
 VALUES
 
 ('m.rossi', 'm.rossi@smartristo.com',
-'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+'4b47756bf5a9436aea07753f83f15ec11f415d4da125f59767e78bc1cb07b2e0',
+'3ede9492fb286ae185ed62e627d31eb903f58ea89eac48adc61ec584333fdb79',
 001, NULL),
 
 ('l.bianchi', 'l.bianchi@smartristo.com',
-'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+'b8e90878c77f8d18f2e971f2f2f67f3edda0408dd49d92aea85921dea8b75afe',
+'ea5fb9119d10e10a7238ef45eb8ab215c8208aa91672eca4a6dee2633937b8d7',
 002, NULL),
 
 ('a.verdi', 'a.verdi@smartristo.com',
-'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+'a26ae75de64cb676ecd5a64777900825c3f707ebcabdf39a7cf9ab00be442647',
+'164aad229edb75f4ea3879a41476938bfdbe855e09b188af7bbe8dc65512f6e5',
 003, NULL),
 
 ('g.neri', 'g.neri@smartristo.com',
-'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+'5a73a2214e69590b1a0a6df9d45081413fa96ea74c29960cc67875ad50515fec',
+'342c0ca376e588cf8bf37319639e8fccc53d1675c86c0bcfe8bffdce49777186',
 004, NULL),
 
 ('p.ferrari', 'p.ferrari@smartristo.com',
-'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+'74ad757fda5624b457b4e4defbad9e970ecdd4df89e11977d3d399b1f83a6286',
+'c190bd9baa4d4ea26926ea9ca8edf69652abd294dae31cf7fbae4edc9999f187',
 005, NULL),
 
 ('freshfood', 'freshfood@smartristo.com',
-'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+'98c96c88f969de2b784b5a68b2cd8adae33c6fc9365a60e6fcee86630f122322',
+'2b4e05a523a5d7273b89831bc86010f7892cb9b81665e9b447f79888e494fc77',
 NULL, 01),
 
 ('biomarket', 'biomarket@smartristo.com',
-'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+'08e7b3668aea18ade42284f70af74852cedb45f06cbc6bda9fd78bd537ca02f6',
+'a56636f2d6c020b6db4f588d98c0f5bb8b8557cf42c8edc9a318fe4f9661a0d0',
 NULL, 02);

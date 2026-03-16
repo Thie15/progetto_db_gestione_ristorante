@@ -6,13 +6,11 @@
     --bianco: #ffffff;
 }
 
-/* nasconde toggle */
 
 #filtri{
     display:none;
 }
 
-/* contenitore */
 
 .filtri-contenitore{
     display:flex;
@@ -20,8 +18,6 @@
     gap:1rem;
     margin:1rem;
 }
-
-/* bottone filtri */
 
 .bottone-filtri{
     padding: 0.6rem 1.2rem;
@@ -35,8 +31,6 @@
     background: var(--blu);
 }
 
-/* pannello filtri */
-
 .filtri{
     display: flex;
     align-items: center;
@@ -44,21 +38,15 @@
     max-width: 0;
 }
 
-/* quando aperto */
-
 #filtri:checked ~ .filtri{
     max-width: 1000px;
 }
-
-/* form in riga */
 
 .filtri form{
     display: flex;
     align-items: center;
     gap: 0.6rem;
 }
-
-/* input */
 
 .filtri input[type="number"],
 .filtri select{
@@ -73,8 +61,6 @@
     width: 3rem;
 }
 
-/* bottone */
-
 .filtri input[type="submit"]{
     padding:0.4rem 0.8rem;
     border:none;
@@ -83,7 +69,10 @@
     cursor:pointer;
 }
 
-/*label*/
 .filtri label{
     color: var(--verde);
+}
+
+svg{
+    color: var(--bianco);
 }

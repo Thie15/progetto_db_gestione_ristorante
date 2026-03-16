@@ -53,7 +53,7 @@
                                 echo "selected";
                                 $ordina = true;
                             } 
-                        ?>>Prezzo ↓</option>
+                        ?>>Prezzo <FontAwesomeIcon :icon="byPrefixAndName.fas['arrow-up']" /></option>
 
                         <option value="Prezzo ASC"
                         <?php 
