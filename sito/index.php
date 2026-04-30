@@ -18,21 +18,13 @@
     <head>
         <title>Smart risto</title>
         <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/header.css">
         <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/card.css">
     </head>
     <body>
-        <header>
-            <img class="logo" src="img/smartristo_logo.svg" alt="Smart Risto">
-            <ul class="menu">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="personale.php">Personale</a></li>
-                <li><a href="prenotazione.php">Prenotazione</a></li>
-                <li><a href="carrello.php">Carrello</a></li>
-                <li><a href="login.php">Login</a></li>
-            </ul>
-        </header>
+        <?php
+            include("inc/header.php");
+        ?>
         <h1 class="titoloPagina">Scopri i nostri piatti</h1>
         <div class="filtri-contenitore">
             <input type="checkbox" id="filtri">
@@ -53,7 +45,7 @@
                                 echo "selected";
                                 $ordina = true;
                             } 
-                        ?>>Prezzo <FontAwesomeIcon :icon="byPrefixAndName.fas['arrow-up']" /></option>
+                        ?>>Prezzo +</option>
 
                         <option value="Prezzo ASC"
                         <?php 
@@ -61,7 +53,7 @@
                                 echo "selected";
                                 $ordina = true;
                             } 
-                        ?>>Prezzo ↑</option>
+                        ?>>Prezzo -</option>
 
                         <option value="Nome ASC"
                         <?php 

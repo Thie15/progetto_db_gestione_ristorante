@@ -2,10 +2,7 @@
     include("inc/datiConnessione.php");
     try{
         include("inc/startConn.php");
-        include("inc/checklogin.php");
-        if($_SESSION["logged"]){
-            header("location:dashboard.php");
-        }
+        session_start();
 ?>
 <html lang="it">
     <head>
@@ -18,29 +15,29 @@
         <?php
             include("inc/header.php");
         ?>
-        <h1 class="titoloPagina">Login</h1>
+        <h1 class="titoloPagina">Modifica password</h1>
         <?php
-            if(isset($_SESSION["username_error"])){
-                echo "<h2>$_SESSION[username_error]</h2>";
-                unset($_SESSION["username_error"]);
+            if(isset($_SESSION["password_vecchia"])){
+                echo "<h2>$_SESSION[password_vecchia]</h2>";
+                unset($_SESSION["password_vecchia"]);
+            }
+            if(isset($_SESSION["password_nuova"])){
+                echo "<h2>$_SESSION[password_nuova]</h2>";
+                unset($_SESSION["password_nuova"]);
             }
             if(isset($_SESSION["password_error"])){
                 echo "<h2>$_SESSION[password_error]</h2>";
                 unset($_SESSION["password_error"]);
             }
-            if(isset($_SESSION["errore"])){
-                echo "<h2>$_SESSION[errore]</h2>";
-                unset($_SESSION["errore"]);
-            }
         ?>
-        <form id="loginForm" method='post' action='checkLogin.php'>
-            <label for="username">Username: </label>
-            <input type="text" name='username' placeholder="Username">
+        <form id="loginForm" method='post' action='checkModificaPassword.php'>
+            <label for="passwordVecchia">Password vecchia: </label>
+            <input id="pwdvecchia" type="password" name='passwordVecchia' placeholder="Password">
             <br>
-            <label for="password">Password: </label>
-            <input id="pwd" type="password" name='password' placeholder="Password">
+            <label for="passwordNuova">Password nuova: </label>
+            <input id="pwdnuova" type="password" name='passwordNuova' placeholder="Password">
             <br>
-            <button type='submit'>Login</button>
+            <button type='submit'>Modifica</button>
         </form>
 
         <noscript>
@@ -60,16 +57,21 @@
 			document.getElementById('loginForm').addEventListener('submit', async (e) => {
 				e.preventDefault(); // Stop form from submitting immediately
 				
-				const passwordInput = document.getElementById('pwd');
-				const passwordValue = passwordInput.value;
+				const passwordInputVecchia = document.getElementById('pwdvecchia');
+				const passwordValueVecchia = passwordInputVecchia.value;
+                const passwordInputNuova = document.getElementById('pwdnuova');
+				const passwordValueNuova = passwordInputNuova.value;
 				
 				// Hash the password
-				const hashed = await sha256(passwordValue);
+				const hashedVecchia = await sha256(passwordValueVecchia);
+                const hashedNuova = await sha256(passwordValueNuova);
 				
 				// Replace with hash
-				passwordInput.value = hashed;
+				passwordInputVecchia.value = hashedVecchia;
+                passwordInputNuova.value = hashedNuova;
 				
-				console.log('Original hashed before submission:', hashed);
+				console.log('Original hashed before submission:', hashedVecchia);
+				console.log('Original hashed before submission:', hashedNuova);
 				
 				// Submit form
 				e.target.submit();      

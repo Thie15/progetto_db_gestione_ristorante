@@ -11,14 +11,19 @@ if(isset($_SESSION["username"]) && isset($_SESSION["password"])){
         $pass_salt = hash('sha256', $salt_div[0].$_SESSION["password"].$salt_div[1]);
 
         if($pass_salt === $row["Password"]){
-            $_SESSION["ok"] = true;
+            $_SESSION["logged"] = true;
+            $_SESSION["utente"] = $row;
+            $_SESSION["personale"] = $row["IDPersonale"];
+            $_SESSION["fornitore"] = $row["IDFornitore"];
         }else{
-            $_SESSION["ok"] = false;
+            $_SESSION["logged"] = false;
         }
     }else{
-        $_SESSION["ok"] = false;
+        $_SESSION["logged"] = false;
     }
 }else{
-        $_SESSION["ok"] = false;
+        $_SESSION["logged"] = false;
     }
 ?>
+
+/*Da modificare i dati session*/

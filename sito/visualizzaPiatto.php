@@ -24,20 +24,12 @@
     <head>
         <title><?php echo $titolo; ?></title>
         <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/header.css">
         <link rel="stylesheet" href="css/visualizzaPiatto.css">
     </head>
     <body>
-        <header>
-            <img class="logo" src="img/smartristo_logo.svg" alt="Smart Risto">
-            <ul class="menu">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="personale.php">Personale</a></li>
-                <li><a href="prenotazione.php">Prenotazione</a></li>
-                <li><a href="carrello.php">Carrello</a></li>
-                <li><a href="login.php">Login</a></li>
-            </ul>
-        </header>
+        <?php
+            include("inc/header.php");
+        ?>
         <h1 class="titoloPagina"><?php echo $titoloPagina; ?></h1>
         <div class="container">
             <img class="immagine-cover" src="img/piatti/<?php echo $piatto['Immagine']; ?>" alt="">
@@ -64,7 +56,7 @@
                     }
                 }
                 echo "</p>";
-                /*for($i = 0; $i < $cicla; $i++){
+                for($i = 0; $i < $cicla; $i++){
                     $sql = "SELECT * FROM specifiche INNER JOIN aux_ingredienti_specifiche USING(IDspecifica) WHERE IDIngrediente = " . $ingredienti[$i]["IDIngrediente"];
                     $results = $conn->query($sql);
                     if($results->rowCount() >= 1){
@@ -73,7 +65,7 @@
                             echo "<img class='icona-specifica' src='img/specifiche/$specifica[Immagine]'>";
                         }
                     }
-                }*/
+                }
             }
         ?>
         <?php    

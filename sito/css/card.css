@@ -52,5 +52,10 @@
     text-align: center;
 }
 
+.sottotitolo{
+    color: var(--verde);
+    margin-left: 2rem;
+}
+
 
 

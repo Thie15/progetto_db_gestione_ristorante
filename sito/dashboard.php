@@ -3,7 +3,7 @@
     try{
         include("inc/startConn.php");
         include("inc/checklogin.php");
-        if(!$_SESSION["ok"]){
+        if(!$_SESSION["logged"]){
             session_unset();
             session_destroy();
             header("location:login.php");
@@ -13,20 +13,13 @@
     <head>
         <title>Smart risto</title>
         <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/header.css">
         <link rel="stylesheet" href="css/dashboard.css">
+        <link rel="stylesheet" href="css/card.css">
     </head>
     <body>
-        <header>
-            <img class="logo" src="img/smartristo_logo.svg" alt="Smart Risto">
-            <ul class="menu">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="personale.php">Personale</a></li>
-                <li><a href="prenotazione.php">Prenotazione</a></li>
-                <li><a href="carrello.php">Carrello</a></li>
-                <li><a href="logout.php">Logout</a></li>
-            </ul>
-        </header>
+        <?php
+            include("inc/header.php");
+        ?>
         <?php
             if(isset($_SESSION["personale"])){
                 $sql = "SELECT * FROM personale WHERE IDPersonale = $_SESSION[personale]";
@@ -40,7 +33,7 @@
                     echo "  <p>Turno: $row[Turno]</p>";
                     echo "  <p>Stipendio: $row[Stipendio]€</p>";
                     echo "</div>";
-                    $sql = "SELECT * FROM timbrature WHERE IDPersonale = $_SESSION[personale]";
+                    $sql = "SELECT * FROM timbrature WHERE IDPersonale = $_SESSION[personale] ORDER BY DataTimbratura DESC, Ora DESC";
                     $results = $conn->query($sql);
                     if($results->rowCount()>=1){
                         $timbrature = $results->fetchAll(PDO::FETCH_ASSOC);
@@ -56,10 +49,10 @@
                     else{
                         echo "<h2>Nessuna timbratura registrata</h2>";
                     }
+                    echo "<a href='timbra.php'>Timbra</a>";
                 }else{
                     echo "<h2>Nessun dato trovato</h2>";
                 }
-                echo "<button class='bottone-logout'><a href='logout.php'>Effettua login</a></button>";
             }
             if(isset($_SESSION["fornitore"])){
                 $sql = "SELECT * FROM fornitori WHERE IDFornitore = $_SESSION[fornitore]";
@@ -93,6 +86,31 @@
                     echo "<h2>Nessun dato trovato</h2>";
                 }
             }
+            if(!isset($_SESSION["personale"]) && !isset($_SESSION["fornitore"])){
+                echo "<h1 class='titoloPagina'>Dashboard admin</h1>";
+                echo "<div class='card-container'>";
+                echo "  <div class='card'>";
+                echo "      <h2 class='card-titolo'>Gestione personale</h2>";
+                echo "      <p class='card-testo'>Clicca qui per gestire il tuo personale</p>";
+                echo "  </div>";
+                echo "  <div class='card'>";
+                echo "      <h2 class='card-titolo'>Gestione piatti</h2>";
+                echo "      <p class='card-testo'>Clicca qui per gestire i tuoi piatti</p>";
+                echo "  </div>";
+                echo "  <div class='card'>";
+                echo "      <h2 class='card-titolo'>Gestione fornitori</h2>";
+                echo "      <p class='card-testo'>Clicca qui per gestire i tuoi fornitori</p>";
+                echo "  </div>";
+                echo "  <div class='card'>";
+                echo "      <h2 class='card-titolo'>Gestione ingredienti</h2>";
+                echo "      <p class='card-testo'>Clicca qui per gestire i tuoi ingredienti</p>";
+                echo "  </div>";
+                echo "</div>";
+            }
+            echo "<div class='bottoni-dashboard'>";
+            echo "<a class='btn-dashboard' href='logout.php'>Effettua logout</a>";
+            echo "<a class='btn-dashboard' href='modificaPassword.php'>Modifica password</a>";
+            echo "</div>";
         ?>    
         <?php    
             }catch(PDOException $e){

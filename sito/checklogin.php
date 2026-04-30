@@ -41,9 +41,6 @@ try{
             if($pass_salt === $row["Password"]){
                 $_SESSION["username"] = $row["Username"];
                 $_SESSION["password"] = $_POST["password"];
-                $_SESSION["email"] = $row["Email"];
-                $_SESSION["personale"] = $row["IDPersonale"];
-                $_SESSION["fornitore"] = $row["IDFornitore"];
                 header("location:dashboard.php");
                 //var_dump($_SESSION);
             }else{
