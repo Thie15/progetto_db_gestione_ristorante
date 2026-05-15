@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include("inc/datiConnessione.php");
     try{
         include("inc/startConn.php");
@@ -16,16 +17,16 @@
         <h1 class="titoloPagina">Ecco il nostro personale</h1>
         <h2 class="sottotitolo">I nostri cuochi</h2>
         <?php
-            $sql = "SELECT * FROM cuochi ";
-            $results = $conn->query($sql);
+            $results = $conn->prepare("SELECT * FROM cuochi");
+            $results->execute();
             if($results->rowCount() < 1){
                 echo "<h1 class='titoloPagina'>Al momento non abbiamo nessun cuoco</h1>";
             }else{
                 $cuochi = $results->fetchAll(PDO::FETCH_ASSOC);
                 echo "<div class='card-container'>";
                 foreach($cuochi as $cuoco){
-                    $sql = "SELECT * FROM personale WHERE IDPersonale = $cuoco[IDPersonale]";
-                    $results = $conn->query($sql);
+                    $results = $conn->prepare("SELECT * FROM personale WHERE IDPersonale = ?");
+                    $results->execute([$cuoco["IDPersonale"]]);
                     $personale = $results->fetch(PDO::FETCH_ASSOC);
                     echo "  <div class='card'>";
                     echo "      <img class='card-personale' src='img/personale/$personale[Immagine]'>";
@@ -37,16 +38,16 @@
         ?>
         <h2 class="sottotitolo">I nostri camerieri</h2>
         <?php
-            $sql = "SELECT * FROM camerieri ";
-            $results = $conn->query($sql);
+            $results = $conn->prepare("SELECT * FROM camerieri ");
+            $results->execute();
             if($results->rowCount() < 1){
                 echo "<h1 class='titoloPagina'>Al momento non abbiamo nessun cameriere</h1>";
             }else{
                 $camerieri = $results->fetchAll(PDO::FETCH_ASSOC);
                 echo "<div class='card-container'>";
                 foreach($camerieri as $cameriere){
-                    $sql = "SELECT * FROM personale WHERE IDPersonale = $cameriere[IDPersonale]";
-                    $results = $conn->query($sql);
+                    $results = $conn->prepare("SELECT * FROM personale WHERE IDPersonale = ?");
+                    $results->execute([$cameriere["IDPersonale"]]);
                     $personale = $results->fetch(PDO::FETCH_ASSOC);
                     echo "  <div class='card'>";
                     echo "      <img class='card-personale' src='img/personale/$personale[Immagine]'>";

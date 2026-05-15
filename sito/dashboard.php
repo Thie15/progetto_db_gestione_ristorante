@@ -22,8 +22,8 @@
         ?>
         <?php
             if(isset($_SESSION["personale"])){
-                $sql = "SELECT * FROM personale WHERE IDPersonale = $_SESSION[personale]";
-                $results = $conn->query($sql);
+                $results = $conn->prepare("SELECT * FROM personale WHERE IDPersonale = ?");
+                $results->execute([$_SESSION["personale"]]);
                 if($results->rowCount()==1){
                     $row = $results->fetch();
                     echo "<h1 class='titoloPagina'>Dashboard $row[Nome] $row[Cognome]</h1>";
@@ -33,8 +33,8 @@
                     echo "  <p>Turno: $row[Turno]</p>";
                     echo "  <p>Stipendio: $row[Stipendio]€</p>";
                     echo "</div>";
-                    $sql = "SELECT * FROM timbrature WHERE IDPersonale = $_SESSION[personale] ORDER BY DataTimbratura DESC, Ora DESC";
-                    $results = $conn->query($sql);
+                    $results = $conn->prepare("SELECT * FROM timbrature WHERE IDPersonale = ? ORDER BY DataTimbratura DESC, Ora DESC");
+                    $results->execute([$_SESSION["personale"]]);
                     if($results->rowCount()>=1){
                         $timbrature = $results->fetchAll(PDO::FETCH_ASSOC);
                         echo "<div class='timbrature'>";
@@ -49,14 +49,17 @@
                     else{
                         echo "<h2>Nessuna timbratura registrata</h2>";
                     }
-                    echo "<a href='timbra.php'>Timbra</a>";
+                    echo "<div class='bottoni-timbratura'>";
+                    echo "<a href='timbra.php?tipo=Entrata' class='btn-timbra'>Timbra entrata</a>";
+                    echo "<a href='timbra.php?tipo=Uscita' class='btn-timbra'>Timbra uscita</a>";
+                    echo "</div>";
                 }else{
                     echo "<h2>Nessun dato trovato</h2>";
                 }
             }
             if(isset($_SESSION["fornitore"])){
-                $sql = "SELECT * FROM fornitori WHERE IDFornitore = $_SESSION[fornitore]";
-                $results = $conn->query($sql);
+                $results = $conn->prepare("SELECT * FROM fornitori WHERE IDFornitore = ?");
+                $results->execute([$_SESSION["fornitore"]]);
                 if($results->rowCount()==1){
                     $row = $results->fetch();
                     echo "<h1 class='titoloPagina'>Dashboard $row[Nome]</h1>";
@@ -65,8 +68,8 @@
                     echo "  <p>Indirizzo: $row[Indirizzo_Comune], $row[Indirizzo_Via] n°$row[Indirizzo_Civico] - $row[Indirizzo_CAP]</p>";
                     echo "  <p>Partita iva: $row[PIVA]</p>";
                     echo "</div>";
-                    $sql = "SELECT * FROM ordinifornitori WHERE IDFornitore = $_SESSION[fornitore]";
-                    $results = $conn->query($sql);
+                    $results = $conn->prepare("SELECT * FROM ordinifornitori WHERE IDFornitore = ?");
+                    $results->execute([$_SESSION["fornitore"]]);
                     if($results->rowCount()>=1){
                         $ordini = $results->fetchAll(PDO::FETCH_ASSOC);
                         echo "<div class='ordini'>";
@@ -91,27 +94,27 @@
                 echo "<div class='card-container'>";
                 echo "  <div class='card'>";
                 echo "      <h2 class='card-titolo'>Gestione personale</h2>";
-                echo "      <p class='card-testo'>Clicca qui per gestire il tuo personale</p>";
+                echo "      <p class='card-testo'>Clicca <a href='gestionePersonale.php'>qui</a> per gestire il tuo personale</p>";
                 echo "  </div>";
                 echo "  <div class='card'>";
                 echo "      <h2 class='card-titolo'>Gestione piatti</h2>";
-                echo "      <p class='card-testo'>Clicca qui per gestire i tuoi piatti</p>";
+                echo "      <p class='card-testo'>Clicca <a href='gestionePiatti.php'>qui</a> per gestire i tuoi piatti</p>";
                 echo "  </div>";
                 echo "  <div class='card'>";
                 echo "      <h2 class='card-titolo'>Gestione fornitori</h2>";
-                echo "      <p class='card-testo'>Clicca qui per gestire i tuoi fornitori</p>";
+                echo "      <p class='card-testo'>Clicca <a href='gestioneFornitori.php'>qui</a> per gestire i tuoi fornitori</p>";
                 echo "  </div>";
                 echo "  <div class='card'>";
                 echo "      <h2 class='card-titolo'>Gestione ingredienti</h2>";
-                echo "      <p class='card-testo'>Clicca qui per gestire i tuoi ingredienti</p>";
+                echo "      <p class='card-testo'>Clicca <a href='gestioneIngredienti.php'>qui</a> per gestire i tuoi ingredienti</p>";
                 echo "  </div>";
                 echo "</div>";
             }
-            echo "<div class='bottoni-dashboard'>";
-            echo "<a class='btn-dashboard' href='logout.php'>Effettua logout</a>";
-            echo "<a class='btn-dashboard' href='modificaPassword.php'>Modifica password</a>";
-            echo "</div>";
-        ?>    
+        ?> 
+        <div class='bottoni-dashboard'>
+            <a class='btn-dashboard' href='logout.php'>Effettua logout</a>
+            <a class='btn-dashboard' href='modificaPassword.php'>Modifica password</a>
+        </div>
         <?php    
             }catch(PDOException $e){
                 echo "<h2 style='color:red; font-weight:bold'>".$e->getMessage()."</h2>";

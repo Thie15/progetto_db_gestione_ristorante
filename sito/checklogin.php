@@ -29,8 +29,8 @@ try{
     if(isset($_SESSION["username_error"]) || isset($_SESSION["password_error"])){
         header("location:login.php");
     }else{ 
-        $sql = "SELECT * FROM account WHERE username = '$_POST[username]'";
-        $results = $conn->query($sql);
+        $results = $conn->prepare("SELECT * FROM account WHERE username = ?");
+        $results->execute([$_POST["username"]]);
 
         if($results->rowCount()==1){
             $row = $results->fetch();

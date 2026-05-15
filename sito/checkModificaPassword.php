@@ -21,8 +21,8 @@ try{
     if(isset($_SESSION["password_vecchia"]) || isset($_SESSION["password_nuova"]) || isset($_SESSION["password_error"])){
         header("location:modificaPassword.php");
     }else{ 
-        $sql = "SELECT * FROM account WHERE Username = '$_SESSION[username]'";
-        $results = $conn->query($sql);
+        $results = $conn->prepare("SELECT * FROM account WHERE Username = ?");
+        $results->execute([$_SESSION["username"]]);
 
         if($results->rowCount()==1){
             $row = $results->fetch();
@@ -34,8 +34,8 @@ try{
                 $saltNuovo = hash('sha256', rand());
                 $salt_divNuovo = str_split($saltNuovo, strlen($saltNuovo)/2);
                 $pass_saltNuova = hash('sha256', $salt_divNuovo[0].$_POST['passwordNuova'].$salt_divNuovo[1]);
-                $sqlModifica = "UPDATE account SET Password = '$pass_saltNuova', Salt = '$saltNuovo' WHERE Username = '$_SESSION[username]'";
-                $resultsModifica = $conn->query($sqlModifica);
+                $resultsModifica = $conn->prepare("UPDATE account SET Password = ?, Salt = ? WHERE Username = ?");
+                $resultsModifica->execute([$pass_saltNuova, $saltNuovo, $_SESSION["username"]]);
                 if($resultsModifica->rowCount()==1){
                     $_SESSION["errore"] = "La password è stata modificata esegui nuovamente l'accesso";
                     session_unset();

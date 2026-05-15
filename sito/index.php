@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include("inc/datiConnessione.php");
     try{
         include("inc/startConn.php");

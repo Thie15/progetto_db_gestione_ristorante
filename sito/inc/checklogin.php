@@ -1,8 +1,8 @@
 <?php
 session_start();
 if(isset($_SESSION["username"]) && isset($_SESSION["password"])){
-    $sql = "SELECT * FROM account WHERE username = '$_SESSION[username]'";
-    $results = $conn->query($sql);
+    $results = $conn->prepare("SELECT * FROM account WHERE username = ?");
+    $results->execute([$_SESSION["username"]]);
 
     if($results->rowCount()==1){
         $row = $results->fetch();
@@ -25,5 +25,3 @@ if(isset($_SESSION["username"]) && isset($_SESSION["password"])){
         $_SESSION["logged"] = false;
     }
 ?>
-
-/*Da modificare i dati session*/

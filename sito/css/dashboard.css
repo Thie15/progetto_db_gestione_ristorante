@@ -200,3 +200,33 @@ h2{
     transform: translateY(-0.15rem);
     box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.5);
 }
+
+/* Contenitore bottoni timbratura */
+.bottoni-timbratura{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem auto;
+    flex-wrap: wrap;
+}
+
+/* Bottoni timbratura */
+.btn-timbra{
+    display: inline-block;
+    padding: 0.8rem 1.8rem;
+    border-radius: 0.5rem;
+    background-color: var(--blu);
+    color: var(--bianco);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 0.3rem 0.8rem rgba(0,0,0,0.4);
+}
+
+.btn-timbra:hover{
+    background-color: var(--verde);
+    color: var(--nero);
+    transform: translateY(-0.15rem);
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.5);
+}

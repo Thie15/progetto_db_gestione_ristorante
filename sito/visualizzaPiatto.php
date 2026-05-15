@@ -1,11 +1,12 @@
 <?php
+    session_start();
     include("inc/datiConnessione.php");
     try{
         include("inc/startConn.php");
         if(isset($_GET["idPiatto"])){
             $idPiatto = $_GET["idPiatto"];
-            $sql = "SELECT * FROM Piatti WHERE IDPiatto = $idPiatto";
-            $results = $conn->query($sql);
+            $results = $conn->prepare("SELECT * FROM Piatti WHERE IDPiatto = ?");
+            $results->execute([$idPiatto]);
             if($results->rowCount() < 1){
                 $titoloPagina = "Il piatto selezionato risulta inesistente";
                 $titolo = "Inesistente";
@@ -36,8 +37,8 @@
         </div>
         <p class="testo">Il costo del piatto è di <?php echo $piatto['Prezzo']; ?>€</p>
         <?php
-            $sql = "SELECT * FROM Ingredienti INNER JOIN aux_piatti_ingredienti USING(IDIngrediente) WHERE IDPiatto = $idPiatto";
-            $results = $conn->query($sql);
+            $results = $conn->prepare("SELECT * FROM Ingredienti INNER JOIN aux_piatti_ingredienti USING(IDIngrediente) WHERE IDPiatto = ?");
+            $results->execute([$idPiatto]);
             echo "<p class='testo'>";
             if($results->rowCount() < 1){
                 echo "Nessun ingrediente collegato a questo piatto";
@@ -57,8 +58,8 @@
                 }
                 echo "</p>";
                 for($i = 0; $i < $cicla; $i++){
-                    $sql = "SELECT * FROM specifiche INNER JOIN aux_ingredienti_specifiche USING(IDspecifica) WHERE IDIngrediente = " . $ingredienti[$i]["IDIngrediente"];
-                    $results = $conn->query($sql);
+                    $results = $conn->prepare("SELECT * FROM specifiche INNER JOIN aux_ingredienti_specifiche USING(IDspecifica) WHERE IDIngrediente = ?");
+                    $results->execute([$ingredienti[$i]["IDIngrediente"]]);
                     if($results->rowCount() >= 1){
                         $specifiche = $results->fetchAll(PDO::FETCH_ASSOC);
                         foreach($specifiche as $specifica){
