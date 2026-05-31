@@ -1,0 +1,187 @@
+:root {
+    --nero: #181818;
+    --nero-chiaro: #232323;
+    --blu: #1e3a8a;
+    --verde: #22c55e;
+    --bianco: #ffffff;
+}
+
+.mpi-msg {
+    width: 90%;
+    max-width: 70rem;
+    margin: 0 auto 1rem;
+    padding: .7rem 1.2rem;
+    border-radius: .4rem;
+    font-size: .9rem;
+    text-align: center;
+}
+.mpi-msg-ok     { background: #0d2b1a; color: var(--verde); }
+.mpi-msg-errore { background: #3a1212; color: #ff6b6b; }
+
+.mpi-sezione {
+    width: 90%;
+    max-width: 70rem;
+    margin: 0 auto 2rem;
+    background: var(--nero);
+    border-radius: .6rem;
+    padding: 1.4rem;
+}
+
+.mpi-sezione-label {
+    color: #555;
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    margin-bottom: 1rem;
+}
+
+.mpi-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .9rem;
+}
+
+.mpi-campo {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+}
+.mpi-campo-full { grid-column: 1 / -1; }
+
+.mpi-campo label {
+    color: #555;
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+.mpi-campo input[type="text"],
+.mpi-campo input[type="number"] {
+    background: var(--nero-chiaro);
+    border: 1px solid #2a2a2a;
+    border-radius: .4rem;
+    padding: .55rem .8rem;
+    color: var(--bianco);
+    font-size: .85rem;
+}
+.mpi-campo input[type="text"]:focus,
+.mpi-campo input[type="number"]:focus {
+    outline: none;
+    border-color: var(--verde);
+}
+.mpi-campo input[type="file"] {
+    background: var(--nero-chiaro);
+    border: 1px dashed #2a2a2a;
+    border-radius: .4rem;
+    padding: .55rem .8rem;
+    color: #888;
+    font-size: .85rem;
+    cursor: pointer;
+}
+.mpi-campo input[type="file"]:hover { border-color: var(--verde); }
+
+.mpi-hint {
+    color: #444;
+    font-size: .75rem;
+}
+.mpi-vuoto {
+    color: #444;
+    font-size: .85rem;
+}
+
+/* Preview immagine attuale */
+.mpi-immagine-attuale .mpi-preview {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.mpi-immagine-attuale img {
+    width: 70px;
+    height: 70px;
+    border-radius: .4rem;
+    object-fit: cover;
+}
+.mpi-immagine-attuale span {
+    color: #555;
+    font-size: .82rem;
+}
+
+/* Checkbox ingredienti */
+.mpi-checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .5rem;
+    margin-top: .3rem;
+}
+.mpi-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--nero-chiaro);
+    border: 1px solid #2a2a2a;
+    border-radius: .4rem;
+    padding: .5rem .7rem;
+    cursor: pointer;
+    transition: border-color .15s;
+    color: #ccc;
+    font-size: .85rem;
+}
+.mpi-checkbox-label:hover { border-color: #444; }
+.mpi-checkbox-label input[type="checkbox"] {
+    accent-color: var(--verde);
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+}
+.mpi-checkbox-label input[type="checkbox"]:checked + span { color: var(--verde); }
+.mpi-checkbox-label small { color: #555; font-size: .75rem; }
+
+.mpi-sep-form {
+    grid-column: 1 / -1;
+    border: none;
+    border-top: 1px dashed #2a2a2a;
+    margin: .2rem 0;
+}
+
+.mpi-bottoni {
+    display: flex;
+    gap: .8rem;
+    align-items: center;
+    justify-content: flex-end;
+}
+.mpi-btn-annulla {
+    padding: .75rem 2rem;
+    background: transparent;
+    border: 1px solid #333;
+    border-radius: .4rem;
+    color: #888;
+    text-decoration: none;
+    font-size: .95rem;
+    transition: border-color .2s, color .2s;
+}
+.mpi-btn-annulla:hover {
+    border-color: #666;
+    color: var(--bianco);
+}
+.mpi-campo button {
+    padding: .75rem 2rem;
+    background: var(--verde);
+    color: var(--nero);
+    border: none;
+    border-radius: .4rem;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color .2s;
+}
+.mpi-campo button:hover {
+    background: var(--blu);
+    color: var(--bianco);
+}
+
+@media (max-width: 650px) {
+    .mpi-form { grid-template-columns: 1fr; }
+    .mpi-campo-full { grid-column: 1; }
+    .mpi-checkbox-grid { grid-template-columns: 1fr 1fr; }
+    .mpi-bottoni { flex-direction: column; }
+    .mpi-btn-annulla, .mpi-campo button { width: 100%; text-align: center; }
+}

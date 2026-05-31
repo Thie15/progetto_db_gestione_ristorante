@@ -294,6 +294,9 @@ CREATE TABLE aux_Ingredienti_OrdiniFornitori(
     CHECK (Quantita > 0)
 );
 
+ALTER TABLE ordinifornitori ADD COLUMN Consegnato tinyint(1) NOT NULL DEFAULT 0;
+ALTER TABLE piatti ADD COLUMN Categoria enum('Antipasto','Primo','Secondo','Contorno','Dessert','Bevanda') NOT NULL DEFAULT 'Primo';
+
 /*popolamento db*/
 
 INSERT INTO Personale

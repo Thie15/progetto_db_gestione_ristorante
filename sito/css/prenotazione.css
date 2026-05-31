@@ -1,0 +1,143 @@
+:root {
+    --nero: #181818;
+    --nero-chiaro: #232323;
+    --blu: #1e3a8a;
+    --verde: #22c55e;
+    --bianco: #ffffff;
+}
+
+.form-prenotazione {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem 2rem;
+    width: 90%;
+    max-width: 44rem;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--nero);
+    border-radius: 0.6rem;
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.5);
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.campo-full {
+    grid-column: 1 / -1;
+}
+
+.campo label {
+    color: #888;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.campo input,
+.campo select {
+    padding: 0.6rem 0.9rem;
+    border-radius: 0.4rem;
+    border: 1px solid #333;
+    background-color: var(--nero-chiaro);
+    color: var(--bianco);
+    font-size: 0.95rem;
+}
+
+.campo input:focus,
+.campo select:focus {
+    outline: none;
+    border-color: var(--verde);
+}
+
+.campo button {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.4rem;
+    background-color: var(--verde);
+    color: var(--nero);
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.campo button:hover {
+    background-color: var(--blu);
+    color: var(--bianco);
+}
+
+/* Messaggio errore */
+.msg-errore {
+    text-align: center;
+    color: #ff4d4d;
+    margin: 1rem;
+    font-size: 1rem;
+}
+
+/* Box successo */
+.box-successo {
+    width: 90%;
+    max-width: 44rem;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--nero);
+    border-radius: 0.6rem;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    text-align: center;
+}
+
+.successo-titolo {
+    color: var(--verde);
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0 0 0.4rem;
+}
+
+.successo-sub {
+    color: #aaa;
+    font-size: 0.9rem;
+    margin: 0 0 0.6rem;
+}
+
+.successo-id {
+    color: var(--verde);
+    font-size: 3rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    margin: 0 0 0.8rem;
+}
+
+.successo-nota {
+    color: #666;
+    font-size: 0.85rem;
+    margin: 0 0 1.2rem;
+}
+
+.btn-carrello {
+    display: inline-block;
+    padding: 0.6rem 1.4rem;
+    background-color: var(--blu);
+    color: var(--bianco);
+    border-radius: 0.4rem;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: background-color 0.2s;
+}
+
+.btn-carrello:hover {
+    background-color: var(--verde);
+    color: var(--nero);
+}
+
+@media (max-width: 600px) {
+    .form-prenotazione {
+        grid-template-columns: 1fr;
+    }
+    .campo-full {
+        grid-column: 1;
+    }
+}

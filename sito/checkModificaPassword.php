@@ -3,8 +3,6 @@ include("inc/datiConnessione.php");
 try{
     session_start();
     include("inc/startConn.php");
-
-    var_dump($_POST);
     
     if($_POST["passwordVecchia"] === hash('sha256', '')){
         $_SESSION["password_vecchia"] = "E necessario inserire la password vecchia";

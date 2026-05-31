@@ -32,43 +32,53 @@
             include("inc/header.php");
         ?>
         <h1 class="titoloPagina"><?php echo $titoloPagina; ?></h1>
-        <div class="container">
-            <img class="immagine-cover" src="img/piatti/<?php echo $piatto['Immagine']; ?>" alt="">
-        </div>
-        <p class="testo">Il costo del piatto è di <?php echo $piatto['Prezzo']; ?>€</p>
-        <?php
-            $results = $conn->prepare("SELECT * FROM Ingredienti INNER JOIN aux_piatti_ingredienti USING(IDIngrediente) WHERE IDPiatto = ?");
-            $results->execute([$idPiatto]);
-            echo "<p class='testo'>";
-            if($results->rowCount() < 1){
-                echo "Nessun ingrediente collegato a questo piatto";
-            }else{
-                echo "Ingredienti: ";
-                $ingredienti = $results->fetchAll(PDO::FETCH_ASSOC);
-                $cicla = $results->rowCount();
-                for($i = 0; $i < $results->rowCount(); $i++){
-                    echo $ingredienti[$i]["Nome"];
-                    if($i <= $results->rowCount()-3){
-                        echo ", ";
-                    }elseif($i == $results->rowCount()-2){
-                        echo " e ";
-                    }else{
-                        echo ".";
-                    }
-                }
-                echo "</p>";
-                for($i = 0; $i < $cicla; $i++){
-                    $results = $conn->prepare("SELECT * FROM specifiche INNER JOIN aux_ingredienti_specifiche USING(IDspecifica) WHERE IDIngrediente = ?");
-                    $results->execute([$ingredienti[$i]["IDIngrediente"]]);
-                    if($results->rowCount() >= 1){
-                        $specifiche = $results->fetchAll(PDO::FETCH_ASSOC);
-                        foreach($specifiche as $specifica){
-                            echo "<img class='icona-specifica' src='img/specifiche/$specifica[Immagine]'>";
+        <div class="piatto-layout">
+            <img class="immagine-cover" src="img/piatti/<?php echo $piatto['Immagine']; ?>" alt="<?php echo $piatto['Nome']; ?>">
+            <div class="piatto-info">
+                <h2 class="piatto-nome"><?php echo $piatto['Nome']; ?></h2>
+                <p class="piatto-prezzo"><?php echo $piatto['Prezzo']; ?>€</p>
+
+                <?php
+                $results = $conn->prepare("SELECT * FROM Ingredienti INNER JOIN aux_piatti_ingredienti USING(IDIngrediente) WHERE IDPiatto = ?");
+                $results->execute([$idPiatto]);
+                if ($results->rowCount() >= 1) {
+                    $ingredienti = $results->fetchAll(PDO::FETCH_ASSOC);
+                    echo "<div class='piatto-sezione'>";
+                    echo "<p class='piatto-sezione-label'>Ingredienti</p>";
+                    $nomi = array_column($ingredienti, 'Nome');
+                    $ultimo = array_pop($nomi);
+                    $testo = count($nomi) > 0 ? implode(', ', $nomi) . ' e ' . $ultimo : $ultimo;
+                    echo "<p class='testo'>$testo.</p>";
+                    echo "</div>";
+
+                    // Specifiche
+                    $tutte_specifiche = [];
+                    foreach ($ingredienti as $ing) {
+                        $rs = $conn->prepare("SELECT * FROM specifiche INNER JOIN aux_ingredienti_specifiche USING(IDspecifica) WHERE IDIngrediente = ?");
+                        $rs->execute([$ing['IDIngrediente']]);
+                        if ($rs->rowCount() >= 1) {
+                            foreach ($rs->fetchAll(PDO::FETCH_ASSOC) as $sp) {
+                                $tutte_specifiche[$sp['IDSpecifica']] = $sp;
+                            }
                         }
                     }
+                    if (!empty($tutte_specifiche)) {
+                        echo "<div class='piatto-sezione'>";
+                        echo "<p class='piatto-sezione-label'>Specifiche</p>";
+                        echo "<ul class='specifiche-lista'>";
+                        foreach ($tutte_specifiche as $sp) {
+                            echo "<li class='specifica-badge'>";
+                            echo "<img class='icona-specifica' src='img/specifiche/$sp[Immagine]' alt='$sp[Nome]'>";
+                            echo "$sp[Nome]";
+                            echo "</li>";
+                        }
+                        echo "</ul>";
+                        echo "</div>";
+                    }
                 }
-            }
-        ?>
+                ?>
+            </div>
+        </div>
         <?php    
             }catch(PDOException $e){
                 echo "<h2 style='color:red; font-weight:bold'>".$e->getMessage()."</h2>";

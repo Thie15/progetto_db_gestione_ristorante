@@ -1,6 +1,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="css/header.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     </head>
     <body>
         <header>
@@ -9,7 +10,6 @@
                 <li><a href="index.php">Home</a></li>
                 <li><a href="personale.php">Personale</a></li>
                 <li><a href="prenotazione.php">Prenotazione</a></li>
-                <li><a href="carrello.php">Carrello</a></li>
                 <?php
                     if(isset($_SESSION["utente"])){
                         $utente = $_SESSION["utente"]["Username"];

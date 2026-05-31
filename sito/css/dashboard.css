@@ -230,3 +230,105 @@ h2{
     transform: translateY(-0.15rem);
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.5);
 }
+
+/* Statistiche admin */
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    width: 90%;
+    max-width: 70rem;
+    margin: 0 auto 2rem;
+}
+
+.stat-box {
+    background-color: var(--nero);
+    border-radius: 0.6rem;
+    padding: 1rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.stat-num {
+    color: var(--verde);
+    font-size: 1.8rem;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.stat-label {
+    color: #555;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Card sezioni admin */
+.admin-sezioni {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    width: 90%;
+    max-width: 70rem;
+    margin: 0 auto 2rem;
+}
+
+.admin-card {
+    background-color: var(--nero);
+    border-radius: 0.6rem;
+    padding: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.admin-card:hover {
+    border-color: #333;
+}
+
+.admin-card-icona {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.icona-verde { background-color: #0d2b1a; }
+.icona-ambra { background-color: #2b1e0a; }
+.icona-blu   { background-color: #0d1a3a; }
+.icona-viola { background-color: #1e0d2b; }
+
+.admin-card-testo h3 {
+    color: var(--bianco);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem;
+}
+
+.admin-card-testo p {
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
+    border-bottom: none !important;
+    padding: 0 !important;
+}
+
+.ordini {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 2fr;
+    gap: 0.6rem 1rem;
+}
+
+@media (max-width: 700px) {
+    .admin-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .admin-sezioni {
+        grid-template-columns: 1fr;
+    }
+}

@@ -62,52 +62,83 @@
                 $results->execute([$_SESSION["fornitore"]]);
                 if($results->rowCount()==1){
                     $row = $results->fetch();
-                    echo "<h1 class='titoloPagina'>Dashboard $row[Nome]</h1>";
+                    echo "<h1 class='titoloPagina'>Dashboard {$row['Nome']}</h1>";
                     echo "<div class='datifornitore'>";
                     echo "  <h3>Dati aziendali</h3>";
-                    echo "  <p>Indirizzo: $row[Indirizzo_Comune], $row[Indirizzo_Via] n°$row[Indirizzo_Civico] - $row[Indirizzo_CAP]</p>";
-                    echo "  <p>Partita iva: $row[PIVA]</p>";
+                    echo "  <p>Indirizzo: {$row['Indirizzo_Comune']}, {$row['Indirizzo_Via']} n°{$row['Indirizzo_Civico']} - {$row['Indirizzo_CAP']}</p>";
+                    echo "  <p>Partita IVA: {$row['PIVA']}</p>";
                     echo "</div>";
-                    $results = $conn->prepare("SELECT * FROM ordinifornitori WHERE IDFornitore = ?");
+
+                    $results = $conn->prepare("
+                        SELECT of2.*,
+                            GROUP_CONCAT(i.Nome, ' — ', aio.Quantita, ' ', aio.UnitaMisura ORDER BY i.Nome SEPARATOR ' | ') AS Dettaglio
+                        FROM ordinifornitori of2
+                        LEFT JOIN aux_ingredienti_ordinifornitori aio ON aio.IDOrdineFornitore = of2.IDOrdineFornitore
+                        LEFT JOIN ingredienti i ON i.IDIngrediente = aio.IDIngrediente
+                        WHERE of2.IDFornitore = ?
+                        GROUP BY of2.IDOrdineFornitore
+                        ORDER BY of2.DataOrdine DESC
+                    ");
                     $results->execute([$_SESSION["fornitore"]]);
-                    if($results->rowCount()>=1){
+
+                    if($results->rowCount() >= 1){
                         $ordini = $results->fetchAll(PDO::FETCH_ASSOC);
                         echo "<div class='ordini'>";
                         echo "  <h3>Ordini effettuati</h3>";
                         echo "  <h4>Data ordine</h4>";
-                        echo "  <h4>Data consegna</h4>";
+                        echo "  <h4>Consegna prevista</h4>";
+                        echo "  <h4>Stato</h4>";
+                        echo "  <h4>Ingredienti</h4>";
                         foreach($ordini as $ordine){
-                            echo "   <p>$ordine[DataOrdine]</p>";
-                            echo "   <p>$ordine[DataConsegna]</p>";
+                            $stato = $ordine["Consegnato"]
+                                ? "<span style='color:#22c55e;font-weight:500;'><i class='fa-solid fa-check'></i> Consegnato</span>"
+                                : "<span style='color:#f59e0b;font-weight:500;'><i class='fa-solid fa-clock'></i> In attesa</span>";
+                            $consegna = $ordine["DataConsegna"] ?? "<span style='color:#555;font-style:italic;'>non specificata</span>";
+                            $dettaglio = $ordine["Dettaglio"] ?? "<span style='color:#555;font-style:italic;'>nessun dettaglio</span>";
+                            echo "  <p>{$ordine['DataOrdine']}</p>";
+                            echo "  <p>$consegna</p>";
+                            echo "  <p>$stato</p>";
+                            echo "  <p>$dettaglio</p>";
                         }
                         echo "</div>";
-                    }
-                    else{
+                    } else {
                         echo "<h2>Nessun ordine effettuato</h2>";
                     }
-                }else{
+                } else {
                     echo "<h2>Nessun dato trovato</h2>";
                 }
             }
             if(!isset($_SESSION["personale"]) && !isset($_SESSION["fornitore"])){
                 echo "<h1 class='titoloPagina'>Dashboard admin</h1>";
-                echo "<div class='card-container'>";
-                echo "  <div class='card'>";
-                echo "      <h2 class='card-titolo'>Gestione personale</h2>";
-                echo "      <p class='card-testo'>Clicca <a href='gestionePersonale.php'>qui</a> per gestire il tuo personale</p>";
-                echo "  </div>";
-                echo "  <div class='card'>";
-                echo "      <h2 class='card-titolo'>Gestione piatti</h2>";
-                echo "      <p class='card-testo'>Clicca <a href='gestionePiatti.php'>qui</a> per gestire i tuoi piatti</p>";
-                echo "  </div>";
-                echo "  <div class='card'>";
-                echo "      <h2 class='card-titolo'>Gestione fornitori</h2>";
-                echo "      <p class='card-testo'>Clicca <a href='gestioneFornitori.php'>qui</a> per gestire i tuoi fornitori</p>";
-                echo "  </div>";
-                echo "  <div class='card'>";
-                echo "      <h2 class='card-titolo'>Gestione ingredienti</h2>";
-                echo "      <p class='card-testo'>Clicca <a href='gestioneIngredienti.php'>qui</a> per gestire i tuoi ingredienti</p>";
-                echo "  </div>";
+
+                $nPersonale   = $conn->query("SELECT COUNT(*) FROM personale")->fetchColumn();
+                $nPiatti      = $conn->query("SELECT COUNT(*) FROM piatti")->fetchColumn();
+                $nFornitori   = $conn->query("SELECT COUNT(*) FROM fornitori")->fetchColumn();
+                $nPrenotazioni = $conn->query("SELECT COUNT(*) FROM prenotazioni WHERE DataPrenotazione = CURDATE()")->fetchColumn();
+
+                echo "<div class='admin-stats'>";
+                echo "  <div class='stat-box'><span class='stat-num'>$nPersonale</span><span class='stat-label'>Dipendenti</span></div>";
+                echo "  <div class='stat-box'><span class='stat-num'>$nPiatti</span><span class='stat-label'>Piatti in menu</span></div>";
+                echo "  <div class='stat-box'><span class='stat-num'>$nFornitori</span><span class='stat-label'>Fornitori</span></div>";
+                echo "  <div class='stat-box'><span class='stat-num'>$nPrenotazioni</span><span class='stat-label'>Prenotazioni oggi</span></div>";
+                echo "</div>";
+
+                echo "<div class='admin-sezioni'>";
+                $sezioni = [
+                    ["href" => "gestionePersonale.php",   "titolo" => "Gestione personale",    "desc" => "Aggiungi, modifica o rimuovi dipendenti e gestisci i turni",          "classe" => "icona-verde"],
+                    ["href" => "gestionePiatti.php",      "titolo" => "Gestione piatti",       "desc" => "Aggiorna il menu, i prezzi e le immagini dei piatti",                  "classe" => "icona-ambra"],
+                    ["href" => "gestioneFornitori.php",   "titolo" => "Gestione fornitori",    "desc" => "Gestisci i fornitori e visualizza gli ordini effettuati",              "classe" => "icona-blu"],
+                    ["href" => "gestioneIngredienti.php", "titolo" => "Gestione ingredienti",  "desc" => "Controlla il magazzino e le scorte degli ingredienti",                 "classe" => "icona-viola"],
+                ];
+                foreach($sezioni as $s){
+                    echo "<a class='admin-card' href='{$s['href']}'>";
+                    echo "  <div class='admin-card-icona {$s['classe']}'></div>";
+                    echo "  <div class='admin-card-testo'>";
+                    echo "      <h3>{$s['titolo']}</h3>";
+                    echo "      <p>{$s['desc']}</p>";
+                    echo "  </div>";
+                    echo "</a>";
+                }
                 echo "</div>";
             }
         ?> 
